@@ -1,0 +1,277 @@
+---
+  title: "Pré-processamento"
+  output: html_document
+---
+Fonte desse material (não exclusivament este): https://rawgit.com/mhahsler/Introduction_to_Data_Mining_R_Examples/master/chap2.html
+Bibliografica básica da disciplina
+
+** FAÇA PASSO A PASSO CADA ETAPA DESTE DOCUMENTO, ENTENDA O COMANDO E A RESPECTIVA SAIDA, BUSQUE A DOCUMENTAÇÃO DAS BIBLIOTECAS USADAS EM CASO DE DUVIDA SOBRE OS PARAMETROS E FORMATOS DE CADA COMANDO. 
+
+** NÃO FAÇA SIMPLESMENTE UM COPY+PASTE. PARA A ATIVIDADE DA SEMANA VOCÊ VAI PRECISAR TER ENTENDIDO BEM TUDO QUE TEM NESSE DOCUMENTO. 
+
+Para essa semana são necessárias as mesmas bibliotecas da semana passada. E algumas adicionais.
+
+Instale as bibliotecas: tidyverse e ggplot2 (caso ainda não tenha feito). Nesta atividade, vamos usar principalmente funções da biblioteca tidyverse.
+
+Caso voce não tenha instalado ainda, descomente as linhas do codigo R abaixo. 
+
+Para a aula 2 você precisa instalar os pacotes sampling e arules. 
+
+``` {r include=TRUE} 
+
+#install.packages("tidyverse")
+#install.packages("ggplot2")
+#install.packages("GGally")
+#install.packages("ggcorrplot")
+
+#bibliotecas da Aula 2
+#install.packages("sampling")
+#install.packages("arules")
+```
+
+ 
+A seguir, precisamos chamar essas bibliotecas, para que suas funções sejam utilizadas:
+``` {r include=TRUE}    
+library(tidyverse)
+library(ggplot2)
+library(GGally)
+library(ggcorrplot)
+# bibliotecas da aula 2
+library(sampling)
+library(arules)
+```
+
+# Dados
+
+Para conhecer algumas funções de pré-processamento da linguagem R, vamos usar a base de dados Iris. 
+
+```{r}
+# a base de dados iris já faz parte do conteudo do R, entao é só chama-la
+# para a tarefa voce precisará abrir o arquivo CSV
+data(iris)
+#convert the data.frame into a tidyerse tibble (optional)
+#é um tipo de dataframe simples
+iris <- as_tibble(iris)
+#se chama o nome da base de dados para mostrar as primeiras instancias de dados
+iris
+```
+
+Olhando a saida desse comando (iris, que corresponde ao nome da variavel do tipo dataframe que recebeu esses dados) voce já começa a conhecer esses dados: são 5 atributos: Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+Todos os atributos são do tipo DBL (double).
+Também voce ve que temos 150 instâncias. 
+
+Para obter estatisticas básica, use o comando "summary":
+```{r}
+summary(iris)
+```
+
+Analisando o resultado desse comando:
+Vemos os valores mínimo, mediana, média, máximo entre outros para cada variavel númerica (os 4 atributos preditivos) e para o atributo categórico, Species, temos o total de exemplos de cada classe. 
+
+# Qualidade dos dados
+
+Para analisar a qualidade dos dados, vamos iniciar com um comando que já utilizamos semana passada. 
+
+```{r}
+ggpairs(iris,  aes(color=Species))
+```
+
+Essa análise permite uma fácil identificação de outliers em atributos numéricos. Essa identificação poderia ser feita a partir dos boxplots, que destacariam valores discrepantes. Neste caso da Iris, não vemos nenhum outlier (apenas com uma inspesão visual) nos atributos preditivos. 
+
+DICA: Por se tratar de uma base de dados conhecida e utilizada para tarefas de aprendizado supervisionado, sabe-se que um dos atributos precisa ser o atributo-alvo. Neste caso da Iris, esse atributo é Species. Os demais atributos da base de dados que não são o atributo-alvo, pode ser definidos como atributos preditivos. No caso da Iris, nesta versão, temos 4 atributos preditivos numéricos contínuos. 
+
+# Pré-processamento
+
+As técnicas de pré-processamento podem ser aplicadas em instâncias ou atributos do seu conjunto de dados. As principais serão descritas a seguir: 
+
+Instâncias: Agregação; Amostragem. 
+
+Atributos: Discretização; Seleção de Atributos; Normalização; Correção de valores faltantes; 
+
+
+## Agregação
+
+É uma técnica de preprocessamento utilizada para redução dos dados (e transformação). Por exemplo, você pode agregar os dados de acordo com o valor de alguma classe de um atributo categórico e então: analisar os demais atributos a partir dessa agregação, ou transformar os atributos a partir da agregação, reduzindo o conjunto (atributos ou instâncias), criando novos valores para os atributos. A agregação pode ser utilizada para reduzir o número de atributos ou instâncias, dependendo de como você aplicar o resultado da agregação nos seus dados.
+
+Neste exemplo não vamos transformar os dados, apenas analisar os valores dos atributos após uma agregação. Com o comando group_by, agrupamos os dados a partir do atributo Species. Do resultado dessa agregação, mostramos com o summarize_all a média dos demais atributos após essa agregação por Species. 
+
+Imagine que sua base Iris, agora inclua todas as flores, com milhares de especies. PAra cada flor, todos esses atributos de muitos exemplos de cada flor. Pode ser que em algum momento você precise identificar padrões relacionados a cada espécie de flor. Dessa forma, você poderia agregar todas as instâncias por espécie, conforme exemplificado aqui, e substituir todos os exemplos de uma espécie por apenas a média de cada um dos atributos preditivos. Nesse exemplo abaixo, você reduziria 150 instâncias em apenas 3. 
+
+```{r}
+iris %>% group_by(Species) %>% summarize_all(mean)
+```
+
+## Amostragem
+
+A técnica de pré-processamento de amostragem também é utilizada para redução de dados. É específica para reduzir o total de instâncias. Imagine uma base de dados com 300 milhões de instâncias. Para manipula-la você precisaria de um computador com muita memória disponível. Nesse caso, você poderia usar essa técnica para reduzir o total de instâncias, gerando uma amostra da base de dados. 
+
+É imporante mencionar que para o processo de descoberta de conhecimento, sempre que possível, mantenha o máximo de dados possível. Redução de dados geralmente implica em perda de qualidade dos modelos gerados (ao estudar classificação, nas próximas aulas, teste esse comentário). 
+
+Essa amostragem pode ser feita de diferentes formas, por exemplo de forma totalmente randômica. Neste caso você não tem garantia de que a proporção de exemplos de cada classe se manterá. 
+
+Para o exemplo usando Iris. Neste exemplo estamos reduzindo a base para apenas 20% da mesma, com 30 instâncias que serão amostradas aleatoriamente. Após realizar o comando, aplicamos o summary para ver o resultado desse pré-processamento.
+
+
+```{r}
+set.seed(1000)
+s <- iris %>% sample_n(30)
+summary(s)
+```
+
+Compare com a o resultado da base original e veja o efeito da amostragem. Analise especialmente o atributo Species. Note que a amostra é aleatória, então não há garantia que a base fique com o mesmo número de exemplos em cada classe. Neste exemplo ficou desbalanceado, com 7, 11 e 12 exemplos em cada classe (quando na base original era balanceado com 50 em cada).
+
+## Amostragem Estratificada
+
+Para resolver o exemplo descrito acima, podemos usar uma amostragem estratificada, que manterá a mesma proporção de exemplos em cada classe. Para isso vamos usar a biblioteca sampling. 
+Desta biblioteca, vamos chamar a função strata, gerando uma amostra de tamanho 10 para cada classe da nossa base de dados, segundo o atributo Species.  
+
+```{r}
+library(sampling)
+id2 <- strata(iris, stratanames="Species", size=c(10,10,10), method="srswor")
+s2 <- iris %>% slice(id2$ID_unit)
+summary(s2)
+```
+
+## Discretização
+
+A discretização consiste em transformar um atributo numérico e um atributo categórico. Esse mapeamento pode ser em somente 2 classes (binarização) ou em mais classes (discretização).
+
+A discretização pode ser feito de diferentes formas. 
+- discretização por tamanho de intervalo igual
+- discretização por categorias com mesmo número de instâncias
+- discretização usando moda (ou média) e desvio padrão
+- discretização usando algoritmo de agrupamento
+
+Para discretizar vamos usar o pacote arules. 
+
+Vamos começar o exemplo analisando o atributo da base de dados Iris chamado Petal.Width. Vamos ver o histograma. 
+
+```{r}
+ggplot(iris, aes(Petal.Width)) + geom_histogram()
+
+```
+
+Vamos usar o pacote arules, função discretize. Documentação sobre essa função:
+https://www.rdocumentation.org/packages/arules/versions/1.6-6/topics/discretize
+
+Os métodos possíveis são:
+method discretization method. Available are: "interval" (equal interval width), "frequency" (equal frequency), "cluster" (k-means clustering) and "fixed" (categories specifies interval boundaries). Note that equal frequency does not achieve perfect equally sized groups if the data contains duplicated values.
+
+
+### discretização por tamanho de intervalo igual
+
+
+```{r}
+iris %>% pull(Petal.Width) %>% discretize(method = "interval", breaks = 3, labels = c("pequeno", "médio","grande"))
+```
+Note que pedimos a discretização em 3 intervalos de tamanho igual, ficando eles divididos em: 0.1-0.9  0.9-1.7  1.7-2.5.
+
+Para melhor visualizar, veja o gráfico a seguir:
+
+```{r}
+ggplot(iris, aes(Petal.Width)) + geom_histogram() +
+  geom_vline(xintercept =
+      iris %>% pull(Petal.Width) %>% discretize(method = "interval", breaks = 3, onlycuts = TRUE),
+    color = "blue") +
+  labs(title = "Discretization: interval", subtitle = "Blue lines are boundaries")
+```
+
+### discretização com frequencia igual:
+```{r}
+iris %>% pull(Petal.Width) %>% discretize(method = "frequency", breaks = 3, labels = c("pequeno", "médio","grande"))
+```
+
+Note que os intervalos de discretização mudam para atender ao método de equal frequency. Agora os intervalos da discretização são: 0.1000000-0.8666667 0.8666667-1.6000000 1.6000000-2.5000000
+
+Para melhor visualizar, e comparar com o método anterior:
+
+```{r}
+ggplot(iris, aes(Petal.Width)) + geom_histogram() +
+  geom_vline(xintercept =
+      iris %>% pull(Petal.Width) %>% discretize(method = "frequency", breaks = 3, onlycuts = TRUE),
+    color = "blue") +
+  labs(title = "Discretization: frequency", subtitle = "Blue lines are boundaries")
+```
+
+Note que agora o atributo Petal.Width, antes contínuo, passa a ser discreto, com 3 valores diferentes: pequeno, médio e grande. O valor discretizado não foi salvo. 
+
+Você pode discretizar todos os atributos da base de dados iris, gerando uma nova base de dados iris_disc. Para isso vamos usar a função discretizeDF. 
+
+```{r}
+
+### discretize todas as colunas usando o tipo de discretização por intervalo igual, em 3 bins, com label de pequeno, medio e grande. 
+irisDisc <- discretizeDF(iris, default = list(method = "interval", breaks = 3, 
+  labels = c("pequeno", "médio", "grande")))
+head(irisDisc)
+summary(irisDisc)
+
+### discretize todas as colunas usando o tipo de discretização por intervalo igual, em 3 bins, com label de pequeno, medio e grande. 
+irisDisc <- discretizeDF(iris, default = list(method = "frequency", breaks = 3, 
+  labels = c("pequeno", "médio", "grande")))
+head(irisDisc)
+summary(irisDisc)
+
+```
+
+
+
+
+## Seleção de Atributos
+
+A seleção de atributos pode ser uma tarefa muito simples, por inspeção visual ou análise do significado dos atributos ou uma tarefa bem mais complexa a partir do uso de algoritmos sofisticados. 
+
+Métodos sofisticados de seleção de atributos serão apresentados nas próximas aulas. 
+Discutindo um pouco sobre seleção como uma tarefa simples. Analisando os dados pelos nomes dos atributos e seus respectivos valores voce pode notar por exemplo que tem 2 atributos com os valores exatamentes iguais. Nesse caso, um deles você pode excluir, pois 2 atributos iguais não agregam conhecimento ao algoritmo de aprendizado. Outro exemplo são atributos repetidos ou com significado muito aproximado. Por exemplo, Peso, altura e IMC. O IMC é uma relação entre peso e altura. Manter os 3 atributos não vai agregar muito conhecimento. Dessa forma, uma sugestão seria manter o peso e altura ou apenas o IMC. 
+
+## Valores faltantes
+
+A base de dados Iris não tem exemplos de valores faltantes. Por essa razão com essa base de dados não é possível testar essa técnica de pré-processamento. 
+
+Principais formas de lidar com valores faltantes:
+- Ignorar a instância (exclui-la da base de dados). Isso pode ser prejudicial se: sua base de dados não tem muitas instâncias, se o valor do atributo-alvo desta instância não é tão frequente, etc. 
+
+- Preencher manualmente os valores faltantes: se forem poucos e você tem acesso ao especialista dos dados, pode solicitar isso.
+
+- Usar uma constante global para substituir o valor faltando por "desconhecido" ou "não-preenchido" por exemplo (se for um atributo categórico).
+
+- usar a média dos valores do atributo (em caso de atributo numérico). Você pode ser mais específico e fazer a média dos valores por classe, e usar a média da classe para substituir o valor faltante. 
+
+- utilizar um valor provável para preencher o valor faltante: inferir esse valor usando uma função de regressão, por exemplo. 
+
+Alguns links sobre missing values e R:
+
+- https://datascienceplus.com/missing-values-in-r/
+
+- https://datascienceplus.com/imputing-missing-data-with-r-mice-package/
+
+- https://statisticsglobe.com/r-find-missing-values/
+
+
+## Outliers (ou ruídos)
+
+Se ao analisar os dados você identificou um ou mais outliers para os valores de um atributo (não é também o caso da Iris), você precisa corrigir esse ruído ou toda sua análise pode ser prejudicada. Para identificar voce pode usar os gráficos vistos na aula passada e uma inspesão visual. Agrupamento também é muito utilizado, veremos nas próximas aulas. 
+
+Para remover os ruídos, após identifica-los podem ser usadas as mesmas técnicas explicada para valores faltantes. 
+
+## Normalização/Padronização
+
+Em algumas ocasiões é necessário normalizar/padronizar os dados de forma a poder comparar diferentes atributos que não estão em uma mesma escala. Por exemplo, imagine que temos a idade e o salário de uma pessoa. São variaveis contínuas que tem escalas completamente diferentes. Em alguns casos pode ser interessante ter ambas em uma mesma escala. A normalização/padronização dos dados são técnicas de pré-processamento aplicada a um determinado atributo e consiste em mudar sua escala de valores.
+
+Em alguns casos, uma variável ter uma escala mais próxima do atributo-alvo pode influenciar o modelo a considera-la mais importante que outras variaveis que estejam em escala diferente. Assim, normalizar/padronizar os dados garante que cada variável explicativa tenha pesos iguais para a explicação do atributo-alvo. É importante mencionar que alguns algoritmos para o treinamento do medelo exigem que todos os dados estejam normalizados entre 0 e 1 (é o caso de muitas implementações de Redes Neurais). 
+
+Há diferentes tipos de normalizações/padronizações e diferentes formas de realiza-las no R. 
+
+Como exemplo, vou mostrar a normalização que consiste em reescalar os valores de um atributo entre [0,1]. Para isso, usamos os valores minimo e máximo do conjunto de atributos a serem normalizados. A seguir, a nova base de dados chamada iris_norm recebe todos os atributos continuos (1:4) normalizados após a função ter sido aplicada a cada valor dos atributos. 
+
+```{r}
+iris_norm <- as.data.frame(apply(iris[, 1:4], 2, function(x) (x - min(x))/(max(x)-min(x))))
+iris_norm$Species <- iris$Species
+summary(iris_norm)
+# compare com o sumário do iris normal
+summary(iris)
+```
+Note que agora todos os atributos numéricos estão com os valores normalizados entre 0 e 1. Observe por exemplo os valores do atributo Sepal.Lenght. Na versão iris original, esse atributo variava de 4.3 até 7.9. Agora esse atributo varia de 0 até 1. O mesmo pode ser observado para os demais atributos após utilizarmos a função criada dentro do próprio comando R para normalizar. 
+
+
+
+

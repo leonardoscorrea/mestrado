@@ -1,0 +1,30 @@
+metal oxido semicondutor(MOS)
+
+source(origem) - gate(porta) - drain(dreno)
+
+tensão de threshold - tensão de corte quando a tensão de entrada for menos que essa tensão representa que não há corrente passando pelo gate, e por sua vez sem corrente no dreno
+
+sem corrente(chave aberta) X com corrente (chave fechada)
+
+
+transistor NMOS e PMOS
+N indica que as cargas majoritárias são eletrons
+0  aplicado no source - chave aberta
+tensão > 0 chave fechada
+P carga majoritárias sendo "lacunas"
+0  aplicado no source - chave fechada
+tensão > 0 chave aberta
+
+1. O que é um bloco lógico?
+
+2. O que é um transistor MOSFET? 
+
+3. Existem dois tipos de transistores MOSFET (P e N). Qual a diferença?
+
+4. O que faz o transistor em um circuito?
+
+5. O que é CMOS?
+
+6. Apresente o circuito para um inversor (função lógica NOT) com transistores MOSFET.
+
+7. Quantos transistores são utilizados para uma porta AND e OR de 2 entradas na tecnologia CMOS.

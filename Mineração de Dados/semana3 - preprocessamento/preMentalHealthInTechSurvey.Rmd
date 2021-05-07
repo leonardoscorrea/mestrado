@@ -1,0 +1,187 @@
+---
+title: "Tarefa Pre-processamento"
+author: "Leonardo da Silva Correa"
+date: "27/04/2021"
+output: pdf_document
+---
+## Mental health in tech survey
+
+<!-- INSTALACAO BIBLIOTECAS -->
+``` {r include=FALSE}    
+#install.packages("tidyverse")
+#install.packages("ggplot2")
+#install.packages("GGally")
+#install.packages("ggcorrplot")
+#bibliotecas da Aula 2
+#install.packages("sampling")
+#install.packages("arules")
+```
+
+
+<!-- INCLUSÃO DE BIBLIOTECAS -->
+``` {r include=FALSE}    
+library(tidyverse)
+library(ggplot2)
+library(GGally)
+library(ggcorrplot)
+library(readr)
+# bibliotecas da aula 2
+library(sampling)
+library(arules)
+```
+
+<!-- LEITURA DOS DADOS -->
+```{r include=FALSE}
+df <- read_csv("survey.csv")
+```
+
+## Preprocessamento
+
+
+### Discretização
+
+```{r}
+dfCleaned <-filter(select(df, Age),Age >0 & Age <150)
+ggplot(dfCleaned, aes(Age)) + geom_histogram()
+dfDiscretizadaIntervalar <- dfCleaned %>% pull(Age) %>% discretize(method = "interval", breaks = 4, labels = c("crianças","jovens", "adultos","idosos"))
+dfDiscretizadaPorFrequencia <- dfCleaned %>% pull(Age) %>% discretize(method = "frequency", breaks = 4, labels = c("crianças","jovens", "adultos","idosos"))
+#DISCRETIZAÇÃO POR INTERVALO
+ggplot(dfCleaned, aes(Age)) + geom_histogram() +
+  geom_vline(xintercept = dfCleaned %>% pull(Age) %>% discretize(method = "interval", breaks = 4, onlycuts = TRUE),color = "red") +
+  labs(title = "Discretização: interval", subtitle = "Linhas vermelhas separam a idade em 4 grupos")
+#DISCRETIZAÇÃO POR FREQUÊNCIA
+ggplot(dfCleaned, aes(Age)) + geom_histogram() +
+  geom_vline(xintercept = dfCleaned %>% pull(Age) %>% discretize(method = "frequency", breaks = 4, onlycuts = TRUE),color = "red") +
+  labs(title = "Discretização: frequency", subtitle = "Linhas vermelhas separam a idade em 4 grupos")
+```
+
+### Padronização
+
+```{r}
+summary(dfCleaned)
+dfCleaned
+df_normalizado <- as.data.frame(apply(select(dfCleaned, Age), 2, function(x) (x - min(x))/(max(x)-min(x))))
+summary(df_normalizado)
+```
+
+
+
+### Outliers
+
+```{r}
+# HITOGRAMA COM DIFERENTES FAIXAS DE VALORES (DADOS ORIGINAIS)
+ggplot(df, aes(Age)) + geom_histogram(bins = 5)
+ggplot(df, aes(Age)) + geom_histogram(bins = 10)
+ggplot(df, aes(Age)) + geom_histogram(bins = 20)
+# HITOGRAMA COM DIFERENTES FAIXAS DE VALORES (DADOS FILTRADOS / SEM OUTLIERS)
+dfCleaned <-filter(select(df, Age),Age >0 & Age <150)
+ggplot(dfCleaned, aes(Age)) + geom_histogram(bins = 5)
+ggplot(dfCleaned, aes(Age)) + geom_histogram(bins = 10)
+ggplot(dfCleaned, aes(Age)) + geom_histogram(bins = 20)
+#BOXPLOT
+boxplot(select(df, Age),las=2)
+ggplot(select(df, Age), aes(Age)) + geom_boxplot()
+```
+
+Mostra-se que existe um valor muito alto com OUTLIERS. Abaixo um BOXPLOT eliminando esses valores muito altos.
+
+```{r}
+#IDADES ACIMA DE 100 ANOS
+dfAge <-filter(select(df, Age),Age >100)
+dfAge
+dfAge <-filter(select(df, Age),Age <100)
+ggplot(select(dfAge, Age), aes(Age)) + geom_boxplot()
+```
+
+Após remover OUTLIERS altos, verificamos que existem OUTLIERS negativos. Abaixo também mostraremos como ficaria um BOXPLOT eliminando estes OUTLIERS baixos também.
+
+```{r}
+#OUTLIERS
+dfAge <-filter(select(df, Age),Age < 0 | Age > 100)
+dfAge
+dfAge <-filter(select(df, Age),Age >0 & Age <150)
+ggplot(select(dfAge, Age), aes(Age)) + geom_boxplot()
+```
+
+
+
+
+### Agregação
+
+```{r}
+
+df_new <- df
+df_new$work_interfere[is.na(df_new$work_interfere)] = 0
+df_new$work_interfere[df_new$work_interfere == "Never"] = 1
+df_new$work_interfere[df_new$work_interfere == "Rarely"] = 2
+df_new$work_interfere[df_new$work_interfere == "Sometimes"] = 3
+df_new$work_interfere[df_new$work_interfere == "Often"] = 4
+df_new$work_interfere = as.numeric(df_new$work_interfere) 
+df_new$mental_health_consequence[df_new$mental_health_consequence == "No"] = 0
+df_new$mental_health_consequence[df_new$mental_health_consequence == "Yes"] = 1
+df_new$mental_health_consequence[df_new$mental_health_consequence == "Maybe"] = 2
+df_new$mental_health_consequence = as.numeric(df_new$mental_health_consequence) 
+
+df_new$tech_company[df_new$tech_company == "No"] = 0
+df_new$tech_company[df_new$tech_company == "Yes"] = 1
+df_new$tech_company = as.numeric(df_new$tech_company)
+df_new$remote_work[df_new$remote_work == "No"] = 0
+df_new$remote_work[df_new$remote_work == "Yes"] = 1
+df_new$remote_work = as.numeric(df_new$remote_work)
+
+groups <- filter(df_new,Age > 0 & Age < 100) %>% group_by(Country,tech_company)
+groups <- groups %>% summarise(Age = mean(Age))
+groups
+
+#filter(select(groups,Country,Age),tech_company==0,Country=="United States")
+
+grafico <- ggplot() +  geom_line(data=filter(groups,tech_company==0), aes(x=Country, y=Age, group=1), color = "darkred") + geom_line(data=filter(groups,tech_company==1), aes(x=Country, y=Age, group=1), color = "steelblue", linetype="twodash")
+grafico.labs <- grafico + labs(title = "Média de Idade", x = "Paises", y = "Média de Idade")
+red.bold.italic.text <- element_text(face = "bold.italic", color = "red")
+grafico.labs + theme(title = red.bold.italic.text, axis.title = red.bold.italic.text, axis.text.x = element_text(face = "italic", angle = 90, vjust = 0.5, hjust=1))
+
+
+```
+
+### Correção de valores faltantes
+
+```{r}
+#ANTES DA CORREÇÃO DE VALORES FALTANTES
+df$work_interfere
+#CORREÇÃO DE VALORES FALTANTES
+df$work_interfere[is.na(df$work_interfere)] = "Não Informado"
+df$work_interfere
+```
+
+
+### Amostragem
+
+```{r}
+df$work_interfere[is.na(df$work_interfere)] = "Não informado"
+id2 <- strata(df_new, stratanames="work_interfere", size=c(10,10,10,10,10), method="srswor")
+s2 <- df %>% slice(id2$ID_unit)
+summary(s2)
+s2
+```
+
+## Análise
+
+```{r}
+#summary(filter(df,Gender))
+dfAnalise <- filter(df,Age >0 & Age <100)
+dfAnalise$Age <- dfAnalise %>% pull(Age) %>% discretize(method = "interval", breaks = 5, labels = c("Criança", "Jovem","Adulto 1","Adulto 2", "Idoso"))
+dfAnalise <- select(dfAnalise, Age,tech_company,treatment) %>% group_by(Age,tech_company,treatment) %>% count(Age,tech_company, sort = TRUE)
+dfAnalise %>% data.frame 
+#pessoas fora da área de tecnologia
+sum(filter(dfAnalise,tech_company=='No')[, 'n'])
+#pessoas da área de tecnologia
+sum(filter(dfAnalise,tech_company=='Yes')[, 'n'])
+
+ggplot(data=filter(dfAnalise, treatment=='Yes'), aes(x=Age, y=n, fill=tech_company)) +
+geom_bar(stat="identity", position=position_dodge())
+
+```
+
+Podemos verificar com o gráfico apresentado que o número de profissionais da tecnologia que buscam tratamento é muito superior aos demais profissionais. Outra análise possível é o número de profissionais pesquisados de idade média muito elevado.
+
+

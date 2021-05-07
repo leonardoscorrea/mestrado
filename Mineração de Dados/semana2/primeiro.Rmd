@@ -1,0 +1,26 @@
+---
+title: "Exemplo 1"
+output: html_document
+---
+## Aqui vai um subtitulo
+
+```{r include=TRUE}
+1+2
+```
+
+```{r include=FALSE}
+2+3
+```
+
+```{r echo=TRUE}
+5+4
+```
+
+```{r echo=FALSE}
+6+2
+```
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+10+1
+```

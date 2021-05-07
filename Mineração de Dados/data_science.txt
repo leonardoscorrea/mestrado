@@ -1,0 +1,2 @@
+https://r4ds.had.co.nz/index.html
+https://livro.curso-r.com/3-r-base.html

@@ -1,0 +1,167 @@
+---
+title: "Tarefa da Semana 1"
+author: "Leonardo da Silva Correa"
+date: "20/04/2021"
+output: html_document
+---
+## Mental health in tech survey
+
+<!-- INSTALACAO BIBLIOTECAS -->
+``` {r include=FALSE}    
+#install.packages("tidyverse")
+#install.packages("ggplot2")
+#install.packages("GGally")
+#install.packages("ggcorrplot")
+```
+
+
+<!-- INCLUSÃO DE BIBLIOTECAS -->
+``` {r include=FALSE}    
+library(tidyverse)
+library(ggplot2)
+library(GGally)
+library(ggcorrplot)
+library(readr)
+```
+
+<!-- LEITURA DOS DADOS -->
+```{r include=FALSE}
+df <- read_csv("survey.csv")
+```
+
+```{r}
+df
+# NÚMERO DE ATRIBUTOS
+ncol(df)
+# NÚMERO DE INSTÂNCIAS
+nrow
+# TIPOS DOS ATRIBUTOS
+str(df)
+# SUMÁRIO
+numericColumns<-select(df,where(is.numeric))
+summary(numericColumns)
+#VALOR MÍNIMO
+df %>% summarize_if(is.numeric, min)
+#VALOR MÁXIMO
+df %>% summarize_if(is.numeric, max)
+#MÉDIA
+df %>% summarize_if(is.numeric, mean)
+#MEDIANA
+df %>% summarize_if(is.numeric, median)
+#DESVIO PADRÃO
+df %>% summarize_if(is.numeric, sd)
+#ATRIBUTOS CATEGÓRICOS
+categoricalColumns<-select(df,where(is.character))
+categoricalColumns %>% count(Gender)
+categoricalColumns %>% count(Country)
+categoricalColumns %>% count(state)
+categoricalColumns %>% count(self_employed)
+categoricalColumns %>% count(family_history)
+categoricalColumns %>% count(treatment)
+categoricalColumns %>% count(work_interfere)
+categoricalColumns %>% count(remote_work)
+categoricalColumns %>% count(tech_company)	
+categoricalColumns %>% count(benefits)
+categoricalColumns %>% count(care_options)
+categoricalColumns %>% count(wellness_program)	
+categoricalColumns %>% count(seek_help)
+categoricalColumns %>% count(anonymity)	
+categoricalColumns %>% count(leave)
+categoricalColumns %>% count(mental_health_consequence)	
+categoricalColumns %>% count(phys_health_consequence)
+categoricalColumns %>% count(coworkers)
+categoricalColumns %>% count(supervisor	)
+categoricalColumns %>% count(mental_health_interview)	
+categoricalColumns %>% count(phys_health_interview)	
+categoricalColumns %>% count(mental_vs_physical)
+```
+
+## Representações Gráficas
+
+```{r}
+# HITOGRAMA COM DIFERENTES FAIXAS DE VALORES (DADOS ORIGINAIS)
+ggplot(df, aes(Age)) + geom_histogram(bins = 5)
+ggplot(df, aes(Age)) + geom_histogram(bins = 10)
+ggplot(df, aes(Age)) + geom_histogram(bins = 20)
+# HITOGRAMA COM DIFERENTES FAIXAS DE VALORES (DADOS FILTRADOS / SEM OUTLIERS)
+dfCleaned <-filter(select(df, Age),Age >0 & Age <150)
+ggplot(dfCleaned, aes(Age)) + geom_histogram(bins = 5)
+ggplot(dfCleaned, aes(Age)) + geom_histogram(bins = 10)
+ggplot(dfCleaned, aes(Age)) + geom_histogram(bins = 20)
+#BOXPLOT
+boxplot(select(df, Age),las=2)
+ggplot(select(df, Age), aes(Age)) + geom_boxplot()
+```
+
+Mostra-se que existe um valor muito alto com OUTLIERS. Abaixo um BOXPLOT eliminando esses valores muito altos.
+
+```{r}
+#IDADES ACIMA DE 100 ANOS
+dfAge <-filter(select(df, Age),Age >100)
+dfAge
+dfAge <-filter(select(df, Age),Age <100)
+ggplot(select(dfAge, Age), aes(Age)) + geom_boxplot()
+```
+
+Após remover OUTLIERS altos, verificamos que existem OUTLIERS negativos. Abaixo também mostraremos como ficaria um BOXPLOT eliminando estes OUTLIERS baixos também.
+
+```{r}
+#OUTLIERS
+dfAge <-filter(select(df, Age),Age < 0 | Age > 100)
+dfAge
+dfAge <-filter(select(df, Age),Age >0 & Age <150)
+ggplot(select(dfAge, Age), aes(Age)) + geom_boxplot()
+```
+
+## Matrizes
+
+Correlacionando interferências no trabalho com consequências na saúde mental
+
+```{r}
+df$work_interfere[is.na(df$work_interfere)] = 0
+df$work_interfere[df$work_interfere == "Never"] = 1
+df$work_interfere[df$work_interfere == "Rarely"] = 2
+df$work_interfere[df$work_interfere == "Sometimes"] = 3
+df$work_interfere[df$work_interfere == "Often"] = 4
+df$work_interfere = as.numeric(df$work_interfere) 
+df$mental_health_consequence[df$mental_health_consequence == "No"] = 0
+df$mental_health_consequence[df$mental_health_consequence == "Yes"] = 1
+df$mental_health_consequence[df$mental_health_consequence == "Maybe"] = 2
+df$mental_health_consequence = as.numeric(df$mental_health_consequence) 
+cm1 <- df %>% select(work_interfere,mental_health_consequence) %>% as.matrix %>% cor()
+ggcorrplot(cm1)
+```
+
+Outro correlacionamento é Trabalho Remoto em empresas de tecnologia possuem consequências na saúde mental
+
+```{r}
+df$tech_company[df$tech_company == "No"] = 0
+df$tech_company[df$tech_company == "Yes"] = 1
+df$tech_company = as.numeric(df$tech_company)
+df$remote_work[df$remote_work == "No"] = 0
+df$remote_work[df$remote_work == "Yes"] = 1
+df$remote_work = as.numeric(df$remote_work)
+cm1 <- df %>% select(tech_company,remote_work,mental_health_consequence) %>% as.matrix %>% cor()
+ggcorrplot(cm1)
+```
+
+
+## Outros Gráficos
+
+```{r}
+
+groups <- filter(df,Age > 0 & Age < 100) %>% group_by(Country,tech_company)
+groups <- groups %>% summarise(Age = mean(Age))
+groups
+
+#filter(select(groups,Country,Age),tech_company==0,Country=="United States")
+
+grafico <- ggplot() +  geom_line(data=filter(groups,tech_company==0), aes(x=Country, y=Age, group=1), color = "darkred") + geom_line(data=filter(groups,tech_company==1), aes(x=Country, y=Age, group=1), color = "steelblue", linetype="twodash")
+grafico.labs <- grafico + labs(title = "Média de Idade", x = "Paises", y = "Média de Idade")
+red.bold.italic.text <- element_text(face = "bold.italic", color = "red")
+grafico.labs + theme(title = red.bold.italic.text, axis.title = red.bold.italic.text, axis.text.x = element_text(face = "italic", angle = 90, vjust = 0.5, hjust=1))
+
+
+```
+
+

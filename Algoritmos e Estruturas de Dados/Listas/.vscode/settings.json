@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "listainteiros.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled",
+    "search.exclude": {
+        "**/*.code-search": false
+    }
+}

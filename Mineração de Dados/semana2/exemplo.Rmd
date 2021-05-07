@@ -1,0 +1,85 @@
+---
+  title: "Análise exploratória de Dados"
+  output: html_document
+#  output: pdf_document
+---
+
+<!-- INCLUSÃO DE BIBLIOTECAS -->
+``` {r include=FALSE}    
+library(tidyverse)
+library(ggplot2)
+library(GGally)
+library(ggcorrplot)
+
+```
+
+<!-- LEITURA DO DATAFRAME -->
+```{r loadIris, include=FALSE}
+data(iris)
+dfIris <- as_tibble(iris)
+```
+
+<!-- MANIPULAÇÃO DOS DADOS -->
+```{r include=TRUE}
+head(dfIris,4)
+tail(dfIris,4)
+nrow(dfIris)
+ncol(dfIris)
+#mínimo, mediana, média, máximo primeiro e terceiro quartil para cada variavel númerica (os 4 atributos preditivos) e para o atributo categórico, Species,temos o total de exemplos de cada classe.
+summary(dfIris)
+iris %>% pull(Sepal.Length)
+#média
+iris %>% pull(Sepal.Length) %>% mean()
+#desvio padrão
+iris %>% pull(Sepal.Length) %>% sd()
+#Calculando um sumário de média (mean)
+iris %>% summarize_if(is.numeric, mean)
+#contar quantidade de cada especie
+iris %>% count(Species)
+```
+
+
+<!-- APRESENTAÇÃO DOS DADOS -->
+## GALERIA ggplot2
+```{r}
+#histograma do atributo Petal.Width com 10 barras (faixas de valores)
+ggplot(iris, aes(Petal.Width)) + geom_histogram(bins = 10)
+#Scatter plot: usando 2 méricos e usando cores no atributo alvo
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) + geom_point()
+```
+
+## GALERIA GGally
+```{r}
+#inclui vários graficos para analisar variaveis numéricas. Você pode usar esse gráfico para analisar a qualidade dos dados
+ggpairs(iris, aes(color=Species))
+#fazer um bloxplot bem geral, olhando todos os atributos preditivos
+boxplot(iris[,1:4],las=2)
+ggplot(iris, aes(Species, Sepal.Length)) + geom_boxplot()
+#subset
+irisVer <- subset(iris, Species == "versicolor")
+irisSet <- subset(iris, Species == "setosa")
+irisVir <- subset(iris, Species == "virginica")
+par(mfrow=c(1,3),mar=c(6,3,2,1))
+boxplot(irisVer[,1:4], main="Versicolor",ylim = c(0,30),las=2)
+boxplot(irisSet[,1:4], main="Setosa",ylim = c(0,8),las=2)
+boxplot(irisVir[,1:4], main="Virginica",ylim = c(0,8),las=2)
+#Data matrix visualization
+ggplot(iris %>% mutate(id = row_number()) %>% pivot_longer(cols = 1:4),
+aes(x = name, y = id, fill = value)) + geom_tile() +
+scale_fill_viridis_c()
+#Você pode escolher um limiar para atribuir uma determinada cor, e outro limiar atribuir uma outra cor bem diferente, para destacar, por exemplo, faixas de valroes de um determinado (ou determinados) atributo (s).
+iris_scaled <- scale(iris %>% select(-Species))
+ggplot(as_tibble(iris_scaled) %>% mutate(id = row_number()) %>% pivot_longer(cols = 1:4),
+aes(x = name, y = id, fill = value)) + geom_tile() +
+scale_fill_gradient2()
+```
+
+## Biblioteca ggcorrplot: correlação entre atributos numéricos
+```{r}
+cm1 <- iris %>% select(-Species) %>% as.matrix %>% cor()
+cm1
+#pelas cores que as variáveis Petal.Width e Petal.Length são altamente correlacionadas
+ggcorrplot(cm1)
+```
+
+
