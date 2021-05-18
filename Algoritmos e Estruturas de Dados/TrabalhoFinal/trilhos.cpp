@@ -126,6 +126,20 @@ typedef struct queue
         qtyElementos++;
     }
 
+    int pull()
+    {
+        if (qtyElementos > 0)
+        {
+            int aux = valores[ponteiro++];
+            valores[ponteiro - 1] = -1;
+            return aux;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
     void removerComValidacao(int val)
     {
         if ((qtyElementos - ponteiro) > 0)
@@ -201,7 +215,35 @@ typedef struct stack
     void inserir(int val)
     {
         valores[ponteiro] = val;
+        qtyElementos++;
         ponteiro++;
+    }
+
+    int pull()
+    {
+        if (qtyElementos > 0)
+        {
+            int aux = valores[--ponteiro];
+            valores[ponteiro] = -1;
+            qtyElementos--;
+            return aux;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    int getHead()
+    {
+        if (qtyElementos > 0)
+        {
+            return valores[ponteiro - 1];
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     void removerComValidacao(int val)
@@ -248,84 +290,77 @@ typedef struct stack
 struct game
 {
     int qty;
-    vector<int> acao;
+    vector<int> gabarito;
     vector<int> valores;
     Stack pilha;
     Queue fila;
-    PriorityQueue filaPrioritaria;
+    int pGabarito;
 
     void
     inicia()
     {
-        pilha.inicia(qty);
         fila.inicia(qty);
-        filaPrioritaria.inicia(qty);
-        for (int i = 0; i < qty; i++)
+        pilha.inicia(qty);
+        pGabarito = 0;
+        for (int i = 1; i <= qty; i++)
         {
-            if (acao[i] == 1)
-            {
-                pilha.inserir(valores[i]);
-                fila.inserir(valores[i]);
-                filaPrioritaria.inserir(valores[i]);
-            }
-            else if (acao[i] == 2)
-            {
-                pilha.removerComValidacao(valores[i]);
-                fila.removerComValidacao(valores[i]);
-                filaPrioritaria.removerComValidacao(valores[i]);
-            }
+            fila.inserir(i);
+            valores.push_back(-1);
         }
     }
 
     void validaGame()
     {
-        if (!pilha.verifica() && !fila.verifica() && !filaPrioritaria.verifica())
+
+        int vagao = fila.pull();
+        int count = 0;
+        while (vagao > 0 && count < qty)
         {
-            printf("impossible\n");
+            if (vagao == gabarito[pGabarito])
+            {
+                valores[pGabarito++] = vagao;
+            }
+            else if (vagao == pilha.getHead())
+            {
+                valores[pGabarito++] = pilha.pull();
+            }
+            else
+            {
+                pilha.inserir(vagao);
+            }
+
+            vagao = fila.pull();
+            while (gabarito[pGabarito] == pilha.getHead())
+            {
+                valores[pGabarito++] = pilha.pull();
+            }
+
+            count++;
         }
-        else
+
+        vagao = pilha.pull();
+        while (vagao > 0)
         {
-            if (pilha.verifica())
+            valores[pGabarito++] = vagao;
+            vagao = pilha.pull();
+        }
+
+        int iqual = 1;
+        for (int i = 0; i < qty; i++)
+        {
+            if (valores[i] != gabarito[i])
             {
-                if (fila.verifica() || filaPrioritaria.verifica())
-                {
-                    printf("not sure\n");
-                }
-                else
-                {
-                    printf("stack\n");
-                }
-            }
-            else if (fila.verifica())
-            {
-                if (pilha.verifica() || filaPrioritaria.verifica())
-                {
-                    printf("not sure\n");
-                }
-                else
-                {
-                    printf("queue\n");
-                }
-            }
-            else if (filaPrioritaria.verifica())
-            {
-                if (pilha.verifica() || fila.verifica())
-                {
-                    printf("not sure\n");
-                }
-                else
-                {
-                    printf("priority queue\n");
-                }
+                iqual = 0;
+                break;
             }
         }
-        pilha.libera();
-        filaPrioritaria.libera();
-        fila.libera();
-        acao.erase(acao.begin(), acao.begin() + qty);
-        valores.erase(valores.begin(), valores.begin() + qty);
-        //free(&valores);
-        //free(&acao);
+
+        cout << ((iqual) ? "Yes" : "No");
+
+        //pilha.libera();
+        //fila.libera();
+        gabarito.erase(gabarito.begin(), gabarito.begin() + qty);
+        //valores.erase(valores.begin(), valores.begin() + qty);
     }
 
     void showValores()
@@ -334,9 +369,8 @@ struct game
         {
             for (int i = 0; i < qty; i++)
             {
-                cout << acao[i] << " ";
+                cout << gabarito[i] << " ";
             }
-            cout << "\n";
             for (int i = 0; i < qty; i++)
             {
                 cout << valores[i] << " ";
@@ -362,23 +396,40 @@ int getInput()
     string line;
     string suit;
 
-    identifiers("[Quantidade de Acoes]: ");
+    identifiers("[Quantidade de Vagoes]: ");
     std::getline(std::cin, line);
     std::istringstream stream(line);
     if (stream >> number)
+    {
+        if (number == 0)
+            return 0;
         mainGame.qty = number;
+    }
     else
         return 0;
 
     identifiers("[Acao] [Valor]");
-    for (int i = 0; i < mainGame.qty; i++)
+    int stop = 1;
+    while (stop)
     {
+        mainGame.inicia();
         std::getline(std::cin, line);
         std::istringstream stream(line);
-        if (stream >> number)
-            mainGame.acao.push_back(number);
-        if (stream >> number)
-            mainGame.valores.push_back(number);
+        while (stream >> number)
+        {
+
+            if (number == 0)
+            {
+                stop = 0;
+                break;
+            }
+            mainGame.gabarito.push_back(number);
+        }
+        if (stop)
+        {
+            mainGame.validaGame();
+        }
+        cout << "\n";
     }
 
     return 1;
@@ -389,9 +440,9 @@ int main()
     while (getInput())
     {
         //getInput();
-        mainGame.showValores();
-        mainGame.inicia();
-        mainGame.validaGame();
+        //mainGame.showValores();
+        //mainGame.inicia();
+        //mainGame.validaGame();
     }
     return 0;
 }

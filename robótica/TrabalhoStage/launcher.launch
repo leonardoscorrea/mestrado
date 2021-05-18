@@ -1,0 +1,7 @@
+<launch>
+	<!-- no modification -->
+	<node name="stageros" pkg="stage_ros" type="stageros" args="$(find stage_controller)/world/maze.world"/>
+	<!-- ############################################################################################ -->
+	<!-- it can be modified -->
+	<node pkg="stage_controller" type="work_controller.py" name="work_controller" output="screen" />
+</launch>

@@ -1,0 +1,19 @@
+Tarefa sobre indução de árvores e decisão
+
+Selecione um dataset público de seu interesse, com uma quantidade qualquer de atributos e instâncias. Sugiro escolher algo simples para facilitar a visualização de informações, ou seja, com poucas dimensões e classe binária. Você deverá modelar um atributo-alvo discreto em função dos demais atributos usando um algoritmo de classificação baseado em árvores de decisão. Cada atributo preditivo pode ser de qualquer tipo de dado: discreto (categórico ou ordinal) ou contínuo (inteiro ou ponto flutuante). Apenas a classe de dados (alvo) deve ser categórico.  Implemente em R uma solução que importe o dataset escolhido e:
+
+    Particione os dados em dois subconjuntos, um para treino e outro para teste. Esta partição deve ser aleatória, mas deve manter a proporção da classe nos dois subconjuntos igual ao conjunto original. Verifique estas proporções antes e depois da divisão. Utilize uma porcentagem parametrizável para o tamanho dos subconjuntos.
+    Aplique as operações de pré-processamento que julgar necessárias sobre o conjunto de treino. Atenção! As operações aplicadas no conjunto de teste devem ser apenas sobre o esquema dos dados, ou sobre os valores de uma única instância. Ou seja, não devem utilizar qualquer informação dos dados de treino tampouco de outras instâncias de teste. Por exemplo, não se pode substituir um valor faltante do conjunto de teste pela média do atributo no conjunto antes do split. Também não se pode utilizar a média do atributo no teste. Use o valor médio do treino para todas as instâncias de teste.
+    Aprenda um modelo baseado em árvore de decisão sobre o conjunto de treino e visualize a árvore resultante. Consegue interpretar facilmente ou a árvore parece sobreajustada? Experimente alterar algum dos hiperparâmetros. A árvore mudou? Quais você alterou e por quê?
+    Qual é a acurácia do modelo sobre os dados de treino? e de teste?
+    Apresente a matriz de confusão e as medidas de Precision, Recall e F1 (F-measure balanceada) para cada classe de dados. Cuidado que no R a matriz de confusão é apresentada transposta em relação aos slides apresentados em aula, que foram capturados da ferramenta Weka. 
+
+Alguns pacotes que podem ser úteis:
+
+    doParallel - automatiza o uso dos múltiplos cores de processamento em loops paralelizáveis
+    foreign - permite a importação de diferentes formatos de dados 
+    VIM - visualização de dados faltantes
+    mice - imputação de dados faltantes
+    caret - coleção de pacotes para classificação e regressão com métodos compartilhados
+    rpart - árvores de decisão
+    party - árvores de decisão

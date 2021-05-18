@@ -873,12 +873,12 @@ id2 &lt;- strata(df_new, stratanames=&quot;work_interfere&quot;, size=c(10,10,10
 s2 &lt;- df %&gt;% slice(id2$ID_unit)
 summary(s2)</code></pre>
 <pre><code>##    Timestamp                        Age           Gender         
-##  Min.   :2014-08-27 11:34:37   Min.   :21.00   Length:50         
-##  1st Qu.:2014-08-27 15:23:45   1st Qu.:26.00   Class :character  
-##  Median :2014-08-28 03:36:54   Median :30.00   Mode  :character  
-##  Mean   :2014-09-19 12:57:33   Mean   :31.74                     
-##  3rd Qu.:2014-08-29 00:02:24   3rd Qu.:35.75                     
-##  Max.   :2015-07-22 18:57:54   Max.   :55.00                     
+##  Min.   :2014-08-27 11:32:49   Min.   : 8.00   Length:50         
+##  1st Qu.:2014-08-27 14:26:26   1st Qu.:27.25   Class :character  
+##  Median :2014-08-28 01:01:41   Median :30.00   Mode  :character  
+##  Mean   :2014-09-06 14:29:50   Mean   :31.56                     
+##  3rd Qu.:2014-08-29 09:23:08   3rd Qu.:35.50                     
+##  Max.   :2015-02-21 04:55:11   Max.   :54.00                     
 ##    Country             state           self_employed      family_history    
 ##  Length:50          Length:50          Length:50          Length:50         
 ##  Class :character   Class :character   Class :character   Class :character  
@@ -930,18 +930,18 @@ summary(s2)</code></pre>
 ## </code></pre>
 <pre class="r"><code>s2</code></pre>
 <pre><code>## # A tibble: 50 x 27
-##    Timestamp             Age Gender  Country  state self_employed family_history
-##    &lt;dttm&gt;              &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;         
-##  1 2014-08-27 12:33:36    36 Male    United … WA    No            No            
-##  2 2014-08-27 15:29:03    33 male    United … OH    No            Yes           
-##  3 2014-08-27 23:57:16    37 Male    United … WA    No            No            
-##  4 2014-08-28 03:06:14    30 Male    United … &lt;NA&gt;  No            No            
-##  5 2014-08-28 15:25:39    48 Female… United … CA    No            Yes           
-##  6 2014-08-29 09:29:37    25 Male    United … PA    No            Yes           
-##  7 2014-08-29 12:20:01    25 Male    South A… &lt;NA&gt;  No            Yes           
-##  8 2014-08-30 11:48:52    29 M       France   &lt;NA&gt;  No            No            
-##  9 2014-09-01 21:34:12    35 M       United … IN    No            Yes           
-## 10 2015-05-06 10:14:50    22 Male    Austral… &lt;NA&gt;  No            Yes           
+##    Timestamp             Age Gender   Country state self_employed family_history
+##    &lt;dttm&gt;              &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;         
+##  1 2014-08-27 12:52:08    43 Male     United… WA    No            Yes           
+##  2 2014-08-27 13:35:40    21 Male     United… KY    No            No            
+##  3 2014-08-27 14:22:00    26 male     Canada  &lt;NA&gt;  No            Yes           
+##  4 2014-08-27 16:21:24    30 Male     United… CA    Yes           Yes           
+##  5 2014-08-28 04:02:47    22 Female   Nether… &lt;NA&gt;  No            No            
+##  6 2014-08-29 09:10:58     8 A littl… Bahama… IL    Yes           Yes           
+##  7 2014-08-29 09:58:55    46 Female … United… CT    No            No            
+##  8 2014-08-29 11:54:38    29 Female   United… NJ    No            No            
+##  9 2014-08-30 06:48:28    30 Male     India   &lt;NA&gt;  No            No            
+## 10 2015-02-21 04:55:11    28 Male     Austra… &lt;NA&gt;  No            No            
 ## # … with 40 more rows, and 20 more variables: treatment &lt;chr&gt;,
 ## #   work_interfere &lt;chr&gt;, no_employees &lt;chr&gt;, remote_work &lt;chr&gt;,
 ## #   tech_company &lt;chr&gt;, benefits &lt;chr&gt;, care_options &lt;chr&gt;,

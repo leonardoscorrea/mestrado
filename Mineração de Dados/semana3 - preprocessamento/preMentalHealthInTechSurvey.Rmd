@@ -2,7 +2,7 @@
 title: "Tarefa Pre-processamento"
 author: "Leonardo da Silva Correa"
 date: "27/04/2021"
-output: pdf_document
+output: html_document
 ---
 ## Mental health in tech survey
 
