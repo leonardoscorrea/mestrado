@@ -1,0 +1,389 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Exemplos de uso do pacote NeuralNet},
+  pdfauthor={Adriano VW},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Exemplos de uso do pacote NeuralNet}
+\author{Adriano VW}
+\date{5/6/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduuxe7uxe3o}{%
+\section{Introdução}\label{introduuxe7uxe3o}}
+
+No R, usando o Rstudio, usamos o pacote \textbf{neuralnet} para ter a
+disposição vários modelos de Redes Neurais Artificiais. Também vamos
+usar a biblioteca \textbf{caret} para usar as funções de avaliação da
+classificação.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(neuralnet)}
+\FunctionTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+Em seguida temos a definição do diretório de trabalho \textbf{setwd}, e
+a limpeza de todas as variáveis do ambiente \textbf{rm(list = ls())}.
+Como dados vamos usar o dataset \textbf{iris} o qual é dividido em
+\(2/3\) para treinamento e \(1/3\) para teste. Veja na ajuda como operam
+as funções \textbf{sample} e \textbf{nrow}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+\CommentTok{\# Split data}
+\NormalTok{train\_idx }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(iris), }\DecValTok{2}\SpecialCharTok{/}\DecValTok{3} \SpecialCharTok{*} \FunctionTok{nrow}\NormalTok{(iris))}
+\NormalTok{iris\_train }\OtherTok{\textless{}{-}}\NormalTok{ iris[train\_idx, ]}
+\NormalTok{iris\_test }\OtherTok{\textless{}{-}}\NormalTok{ iris[}\SpecialCharTok{{-}}\NormalTok{train\_idx, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{classficauxe7uxe3o-binuxe1ria}{%
+\section{Classficação Binária}\label{classficauxe7uxe3o-binuxe1ria}}
+
+A principal função para criar a rede neural é a \textbf{neuralnet}. No
+exemplo aqui apresentado, coloquei vários dos parâmetros explicitamente
+na função, mas existem outros, para ver todos parâmetros e suas opções
+investigue a ajuda da função. Veja que é necessãrio informar uma
+fórmula, a qual denominamos \textbf{f}. Nesse exemplo estamos criando um
+modelo que tenta classificar a espécie \textbf{setosa}, a partir dos
+atributos \textbf{Petal.Length + Petal.Width}
+
+Para testar o modelo, usamos a função \textbf{predict}, a qual usa o
+modelo inferido \textbf{nn} e os dados de teste para avaliar a
+performance do modelo. Uma matriz de confusão e várias estatísticas são
+mostradas e por fim a rede inferida é plotada. Veja que escolhemos
+somente uma camada escondida, com somente um nó.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f}\OtherTok{\textless{}{-}} \FunctionTok{as.formula}\NormalTok{(}\StringTok{"Species == }\SpecialCharTok{\textbackslash{}"}\StringTok{setosa}\SpecialCharTok{\textbackslash{}"}\StringTok{ \textasciitilde{} Petal.Length + Petal.Width"}\NormalTok{)}
+\NormalTok{nn }\OtherTok{\textless{}{-}} \FunctionTok{neuralnet}\NormalTok{(f, }
+\NormalTok{                iris\_train,}
+                \AttributeTok{hidden =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }
+                \AttributeTok{threshold =} \FloatTok{0.01}\NormalTok{,}
+                \AttributeTok{stepmax =} \FloatTok{1e+05}\NormalTok{,}
+                \AttributeTok{learningrate=}\FloatTok{0.1}\NormalTok{,}
+                \AttributeTok{algorithm =} \StringTok{"backprop"}\NormalTok{,}
+                \AttributeTok{linear.output =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(nn, iris\_test)}
+\NormalTok{result}\OtherTok{\textless{}{-}}\FunctionTok{table}\NormalTok{(iris\_test}\SpecialCharTok{$}\NormalTok{Species }\SpecialCharTok{==} \StringTok{"setosa"}\NormalTok{, pred[, }\DecValTok{1}\NormalTok{] }\SpecialCharTok{\textgreater{}} \FloatTok{0.5}\NormalTok{)}
+\FunctionTok{confusionMatrix}\NormalTok{(result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##        
+##         FALSE TRUE
+##   FALSE    33    0
+##   TRUE      0   17
+##                                      
+##                Accuracy : 1          
+##                  95% CI : (0.9289, 1)
+##     No Information Rate : 0.66       
+##     P-Value [Acc > NIR] : 9.488e-10  
+##                                      
+##                   Kappa : 1          
+##                                      
+##  Mcnemar's Test P-Value : NA         
+##                                      
+##             Sensitivity : 1.00       
+##             Specificity : 1.00       
+##          Pos Pred Value : 1.00       
+##          Neg Pred Value : 1.00       
+##              Prevalence : 0.66       
+##          Detection Rate : 0.66       
+##    Detection Prevalence : 0.66       
+##       Balanced Accuracy : 1.00       
+##                                      
+##        'Positive' Class : FALSE      
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(nn,}\AttributeTok{rep =} \StringTok{"best"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ExampleNeuralNet_files/figure-latex/Binary Classification-1} \end{center}
+
+\hypertarget{classificauxe7uxe3o-multiclasse}{%
+\section{Classificação
+multiclasse}\label{classificauxe7uxe3o-multiclasse}}
+
+Nesse segundo exemplo utilizamos os mesmos dados do exemplo anterior,
+porém nesse caso queremos classificar a espécie em uma das três
+possibilidades. Veje que na fórmula, dessa vez já escrita dentro da
+função \textbf{neuralnet}, temos três variáveis dependentes (resposta),
+\emph{setosa, versicolor e virginica} e três variáveis independentes
+(explicativas).
+
+Depois de obter o modelo, novamente utilizamos funções para fazer a
+predição usando os dados de teste e verificar as medidas de avaliação do
+modelo inferido. Note, que nos dois exemplos, os dados de teste não são
+utilizados para inferência do modelo. Também, como não estamos definindo
+o valor da semente aleatória da simulação, cada vez que o exemplo for
+executado, será encontrada um modelo, e consequentemente, uma avaliação
+diferente.
+
+Veja como no parâmetro \textbf{hidden} são definidos os números de
+camadas escondidas e também o número de nós em cada camada. Experimente
+mudar esses números e veja como muda o erro do modelo inferido.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nn2 }\OtherTok{\textless{}{-}} \FunctionTok{neuralnet}\NormalTok{((Species }\SpecialCharTok{==} \StringTok{"setosa"}\NormalTok{) }\SpecialCharTok{+} 
+\NormalTok{                 (Species }\SpecialCharTok{==} \StringTok{"versicolor"}\NormalTok{) }\SpecialCharTok{+} 
+\NormalTok{                 (Species }\SpecialCharTok{==} \StringTok{"virginica"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                  Petal.Length }\SpecialCharTok{+} 
+\NormalTok{                  Petal.Width}\SpecialCharTok{+}\NormalTok{Sepal.Length}\SpecialCharTok{+}
+\NormalTok{                  Sepal.Width, }
+\NormalTok{                iris\_train,}
+                \AttributeTok{hidden =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{), }
+                \AttributeTok{threshold =} \FloatTok{0.1}\NormalTok{,}
+                \AttributeTok{stepmax =} \FloatTok{1e+05}\NormalTok{,}
+                \AttributeTok{learningrate=}\FloatTok{0.01}\NormalTok{,}
+                \AttributeTok{algorithm =} \StringTok{"backprop"}\NormalTok{,}
+                \AttributeTok{linear.output =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{pred2 }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(nn2, iris\_test)}
+
+\NormalTok{a}\OtherTok{\textless{}{-}}\FunctionTok{apply}\NormalTok{(pred2, }\DecValTok{1}\NormalTok{, which.max)}
+\NormalTok{a[a}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\OtherTok{\textless{}{-}}\StringTok{"setosa"}
+\NormalTok{a[a}\SpecialCharTok{==}\DecValTok{2}\NormalTok{]}\OtherTok{\textless{}{-}}\StringTok{"versicolor"}
+\NormalTok{a[a}\SpecialCharTok{==}\DecValTok{3}\NormalTok{]}\OtherTok{\textless{}{-}}\StringTok{"virginica"}
+\NormalTok{a}\OtherTok{\textless{}{-}}\FunctionTok{factor}\NormalTok{(a,}\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"setosa"}\NormalTok{,}\StringTok{"versicolor"}\NormalTok{,}\StringTok{"virginica"}\NormalTok{))}
+\NormalTok{result2}\OtherTok{\textless{}{-}}\FunctionTok{table}\NormalTok{(iris\_test}\SpecialCharTok{$}\NormalTok{Species,a)}
+\FunctionTok{confusionMatrix}\NormalTok{(result2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##             a
+##              setosa versicolor virginica
+##   setosa          0         17         0
+##   versicolor      0         16         0
+##   virginica       0         17         0
+## 
+## Overall Statistics
+##                                          
+##                Accuracy : 0.32           
+##                  95% CI : (0.1952, 0.467)
+##     No Information Rate : 1              
+##     P-Value [Acc > NIR] : 1              
+##                                          
+##                   Kappa : 0              
+##                                          
+##  Mcnemar's Test P-Value : NA             
+## 
+## Statistics by Class:
+## 
+##                      Class: setosa Class: versicolor Class: virginica
+## Sensitivity                     NA              0.32               NA
+## Specificity                   0.66                NA             0.66
+## Pos Pred Value                  NA                NA               NA
+## Neg Pred Value                  NA                NA               NA
+## Prevalence                    0.00              1.00             0.00
+## Detection Rate                0.00              0.32             0.00
+## Detection Prevalence          0.34              0.32             0.34
+## Balanced Accuracy               NA                NA               NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(nn2,}\AttributeTok{rep =} \StringTok{"best"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ExampleNeuralNet_files/figure-latex/Multiclass Classification-1} \end{center}
+
+\hypertarget{regressuxe3o}{%
+\section{Regressão}\label{regressuxe3o}}
+
+As Redes Neurais Artificiais também podem ser empregadas em problemas de
+regressão, onde a variável de resposta é contínua. No nosso exemplo
+vamos usar os dados \textbf{Boston} do pacote \textbf{MASS}. Uma
+recomendação importante para o treinamento de Redes Neurais Artificiais
+é que os valores de cada variável tenham valores na mesma escala. Para
+tanto nesse problema os valores são padronizados para o intervalo
+\([0,1]\). Depois os dados são separados em treinamento e teste e a rede
+neural é treinada.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+\FunctionTok{library}\NormalTok{(MASS)}
+
+\CommentTok{\# Boston dataset from MASS}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ Boston}
+
+\CommentTok{\# \# Normalize the data}
+\NormalTok{maxs }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(data, }\DecValTok{2}\NormalTok{, max)}
+\NormalTok{mins }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(data, }\DecValTok{2}\NormalTok{, min)}
+\NormalTok{scaled }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{scale}\NormalTok{(data, }\AttributeTok{center =}\NormalTok{ mins,}
+                              \AttributeTok{scale =}\NormalTok{ maxs }\SpecialCharTok{{-}}\NormalTok{ mins))}
+
+\CommentTok{\# Split the data into training and testing set}
+\NormalTok{index }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(data), }\FunctionTok{round}\NormalTok{(}\DecValTok{2}\SpecialCharTok{/}\DecValTok{3} \SpecialCharTok{*} \FunctionTok{nrow}\NormalTok{(data)))}
+\NormalTok{train\_ }\OtherTok{\textless{}{-}}\NormalTok{ scaled[index,]}
+\NormalTok{test\_ }\OtherTok{\textless{}{-}}\NormalTok{ scaled[}\SpecialCharTok{{-}}\NormalTok{index,]}
+\NormalTok{nn }\OtherTok{\textless{}{-}} \FunctionTok{neuralnet}\NormalTok{(medv }\SpecialCharTok{\textasciitilde{}}\NormalTok{ crim }\SpecialCharTok{+}\NormalTok{ zn }\SpecialCharTok{+}\NormalTok{ indus }\SpecialCharTok{+}\NormalTok{ chas }\SpecialCharTok{+}\NormalTok{ nox }
+                \SpecialCharTok{+}\NormalTok{ rm }\SpecialCharTok{+}\NormalTok{ age }\SpecialCharTok{+}\NormalTok{ dis }\SpecialCharTok{+}\NormalTok{ rad }\SpecialCharTok{+}\NormalTok{ tax }\SpecialCharTok{+} 
+\NormalTok{                  ptratio }\SpecialCharTok{+}\NormalTok{ black }\SpecialCharTok{+}\NormalTok{ lstat, }
+                \AttributeTok{data =}\NormalTok{ train\_, }\AttributeTok{hidden =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{), }
+                \AttributeTok{linear.output =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A rede inferida é a seguinte:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(nn,}\AttributeTok{rep =} \StringTok{"best"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ExampleNeuralNet_files/figure-latex/Regressão4-1} \end{center}
+
+A predição é realizada como nos casos de classificação, mas os valores
+obtidos precisam ser reescalados para os valores originais. Os valores
+obtidos e os de teste, já reescalados, são então utilizados para
+calcular o \emph{mean squared error}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Predict on test data}
+\NormalTok{pr.nn }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(nn, test\_[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{13}\NormalTok{])}
+\CommentTok{\# Compute mean squared error}
+\NormalTok{pr.nn\_ }\OtherTok{\textless{}{-}}\NormalTok{ pr.nn }\SpecialCharTok{*}\NormalTok{ (}\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{medv) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{medv)) }\SpecialCharTok{+} \FunctionTok{min}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{medv)}
+\NormalTok{test.r }\OtherTok{\textless{}{-}}\NormalTok{ (test\_}\SpecialCharTok{$}\NormalTok{medv) }\SpecialCharTok{*}\NormalTok{ (}\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{medv) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{medv)) }\SpecialCharTok{+}
+  \FunctionTok{min}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{medv)}
+\NormalTok{MSE.nn }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{((test.r }\SpecialCharTok{{-}}\NormalTok{ pr.nn\_)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{nrow}\NormalTok{(test\_)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{section}{%
+\section{}\label{section}}
+
+Uma figura com a dispersão entre os valores de teste e os valores
+preditos é também apresentada.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}\AttributeTok{pty=}\StringTok{"s"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(test\_}\SpecialCharTok{$}\NormalTok{medv, }\FunctionTok{as.vector}\NormalTok{(pr.nn), }\AttributeTok{col =} \StringTok{"red"}\NormalTok{,}
+     \AttributeTok{main =} \StringTok{\textquotesingle{}Real vs Predicted\textquotesingle{}}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ExampleNeuralNet_files/figure-latex/Regressão3-1} \end{center}
+
+\end{document}

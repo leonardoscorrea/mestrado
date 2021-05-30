@@ -1,0 +1,22 @@
+
+USArrests
+
+This data set contains statistics about violent crime rates by us state.
+
+data("USArrests")
+     
+head(USArrests)
+
+           Murder Assault UrbanPop Rape
+Alabama      13.2     236       58 21.2
+Alaska       10.0     263       48 44.5
+Arizona       8.1     294       80 31.0
+Arkansas      8.8     190       50 19.5
+California    9.0     276       91 40.6
+Colorado      7.9     204       78 38.7
+
+    Murder: Murder arrests (per 100,000)
+    Assault: Assault arrests (per 100,000)
+    UrbanPop: Percent urban population
+    Rape: Rape arrests (per 100,000)
+

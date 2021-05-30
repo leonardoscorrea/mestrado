@@ -1,0 +1,57 @@
+; BubbleSort
+; Ordenando numeros incluidos em memoria como valores iniciais
+; Desenvolvido por Leonardo da Silva Correa
+
+JMP start
+InitialValues: 	DB 53 
+       		DB 51  ; Variable
+       		DB 56  ; Variable
+       		DB 52  ; Variable
+       		DB 54  ; Variable
+       		DB 0	; String terminator
+
+start:
+	MOV C, InitialValues    ; Point to var 
+	MOV D, 232	; Point to output
+	CALL checkValues
+        HLT             ; Stop execution
+
+checkValues:
+	MOV A, [C]
+	MOV [D], A	
+	INC C
+	CMP A, [C]
+	JA changeValue
+	JMP nextValue
+	RET
+
+nextValue:
+	MOV A, [C]
+	INC C
+	CMP A, [C]
+	JA changeValue
+	RET
+
+changeValue:
+	MOV B, [C]
+	MOV [C], A
+	DEC C
+	MOV [C], B
+	INC C
+	JMP checkValues
+
+print:			; print(C:*from, D:*to)
+	PUSH A
+	PUSH B
+	MOV B, 0
+.loop:
+	MOV A, [C]	; Get char from var
+	MOV [D], A	; Write to output
+	INC C
+	INC D  
+	CMP B, [C]	; Check if end
+	JNZ .loop	; jump if not
+
+	POP B
+	POP A
+	RET

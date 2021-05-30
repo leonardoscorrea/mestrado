@@ -1,0 +1,92 @@
+---
+title: "Trabalho Redes Neurais"
+author: "Leonardo da Silva Correa"
+date: "25/05/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- INCLUSÃO DE BIBLIOTECAS -->
+``` {r include=FALSE}   
+#install.packages("palmerpenguins")
+library(palmerpenguins)
+library(neuralnet)
+library(caret)
+library(tidyverse)
+library(ggplot2)
+library(GGally)
+library(ggcorrplot)
+library(readr)
+# bibliotecas da aula 2
+library(sampling)
+library(arules)
+```
+
+```{r include=FALSE}
+df <- penguins
+dim(df) # dimensions rows,columns
+table(df$class)
+colnames(df) <- make.names(colnames(df))
+#head(penguins)
+#names(penguins)
+```
+
+# Pre-Processamento
+```{r}
+
+summary(df)
+#df <- filter(df, !is.na(bill_length_mm))
+df <- filter(df, !is.na(sex))
+summary(df)
+df <- subset( df, select = -sex )
+#verificando Outliers
+ggplot(select(df, bill_length_mm), aes(bill_length_mm)) + geom_boxplot()
+ggplot(select(df, bill_depth_mm), aes(bill_depth_mm)) + geom_boxplot()
+ggplot(select(df, flipper_length_mm), aes(flipper_length_mm)) + geom_boxplot()
+ggplot(select(df, body_mass_g), aes(body_mass_g)) + geom_boxplot()
+ggplot(select(df, year), aes(year)) + geom_boxplot()
+```
+
+# Criando dataframes de treino e teste
+
+```{r}
+train_idx <- sample(nrow(df), 2/3 * nrow(df))
+df_train <- df[train_idx, ]
+df_test <- df[-train_idx, ]
+```
+
+# Criando Redes Neurais
+```{r}
+nn <- neuralnet((species == "Adelie") + 
+                 (species == "Chinstrap") + 
+                 (species == "Gentoo") ~ 
+                  bill_length_mm + 
+                  bill_depth_mm+flipper_length_mm+body_mass_g, 
+                df_train,
+                hidden = c(3,2), 
+                threshold = 0.01,
+                stepmax = 1e+05,
+                learningrate=0.1,
+                algorithm = "backprop",
+                linear.output = FALSE)
+pred <- predict(nn, df_test)
+a<-apply(pred, 1, which.max)
+a[a==1]<-"Adelie"
+a[a==2]<-"Chinstrap"
+a[a==3]<-"Gentoo"
+a<-factor(a,levels = c("Adelie","Chinstrap","Gentoo"))
+result<-table(df_test$species,a)
+confusionMatrix(result)
+plot(nn,rep = "best")
+
+plot(df$body_mass_g, df$flipper_length_mm, col=df$species)
+```
+
+Quando observamos o gráfico, nota-se uma prevalência de tamanho de massa e de barbatanas na espécie Gentoo.
+
+
+
+

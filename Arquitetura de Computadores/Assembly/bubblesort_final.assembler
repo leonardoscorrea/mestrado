@@ -1,0 +1,52 @@
+; BubbleSort
+; Ordenando numeros incluidos em memoria como valores iniciais
+; Desenvolvido por Leonardo da Silva Correa
+
+JMP start
+InitialValues: 	DB "53846" ; valores a serem ordenados
+       		DB 0	   ; terminador
+
+start:
+	MOV C, InitialValues    ; inclui valores para ordenacao na RAM
+	MOV D, 232		; seta o registrador D para output
+	CALL initialOutput	; coloca valores no output
+	MOV D, 232		; seta novamente o registrador para o inicio do output
+	CALL externalLoop	; executa a ordenacao
+        HLT             	; para execucao
+
+initialOutput:
+	MOV A, [C]	; inclui valor do ponteiro C para o registrador A
+	MOV [D], A	; coloca o valor de A na posicao output D
+	INC D		; incrementa posicao D
+	INC C		; incrementa posicao C
+	CMP B, [C]	; verifica se a posicao C nao eh 0
+	JNZ initialOutput	; se nao for ainda tem numeros para output
+	RET		; retorna ao principal(chamador)
+
+externalLoop:
+	MOV B, 0	; zera registrador B
+        MOV C, 0	; zera registrador C
+	MOV D, 232	; posiciona D no começo do output
+	CALL internalLoop ; faz chamada ao loop que compara os valores
+	CMP B, 0	; se houve troca o registrador B é utilizado, isso significa que devemos passar novamente em todos valores verificando novamente
+	JNZ externalLoop	; verificar novamente os valores até que nao haja mais troca e os valores estejam ordenados
+	RET
+
+internalLoop:
+	MOV A, [D]	; move o valor do output para o registrador A para comparar com o valor seguinte
+	INC D		; incrementa o valor seguinte do output
+	CMP A, [D]	; compara os valores
+	JA changeValue	; se valor A > [D], entao inverte
+	CMP C, [D]	; verifica se o valor da saida nao eh 0 (fim dos valores)
+	JNZ internalLoop ; se nao eh 0, entao ainda nao chegou ao final dos valores
+	RET		; retorna ao laco externo
+
+changeValue:
+	CMP C, [D]	; se 0 nao trocar
+	JZ internalLoop ; se 0, significa que esta no fim dos valores,  e esta comparando o ultimo valor com o 0
+	MOV B, [D]	; coloca o valor a ser invertido para B (isso vai sinalizar que houve uma troca)
+	MOV [D], A	; coloca o valor que esta em A(o maior) na posicao maior
+	DEC D		; decrementa a saida pra colocar o valor menor
+	MOV [D], B	; coloca o valor menor na posicao anterior
+	INC D		; volta para a posicao atual da leitura de saida
+	JMP internalLoop ; volta para o loop interno
