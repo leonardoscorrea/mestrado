@@ -1,0 +1,133 @@
+#! /usr/bin/env python
+import rospy 
+from geometry_msgs.msg import *
+from sensor_msgs.msg import *
+from nav_msgs.msg import *
+import random
+import math
+from gazebo_msgs.msg import *
+import numpy as np
+import csv
+import rospkg
+import matplotlib.pyplot as plt
+from matplotlib import cm
+import time
+from environment import Env
+from line import Line
+
+laser = LaserScan()
+odometro = Odometry()
+line = Line()
+LINEAR_VEL = 0.22
+ANGULAR_VEL = 0.4
+STOP_DISTANCE = 0.25
+LIDAR_ERROR = 0.05
+SAFE_DISTANCE = STOP_DISTANCE + LIDAR_ERROR
+
+
+def odom_callback(data):
+    global odometro
+    odometro = data
+    #print(odometro)
+
+def laser_callback(data):
+    global laser
+    laser = data
+
+def listeners():
+    rospy.Subscriber("/odom", Odometry, odom_callback)
+    rospy.Subscriber("/scan", LaserScan, laser_callback)
+
+def calculateDistanceBetweenLineAndRobo(roboX,roboY):
+    global line    
+    up_eq = math.fabs(((line.point2X - line.point1X) * (line.point1Y - roboY)) - ((line.point1X - roboX) * (line.point2Y - line.point1Y)))
+    low_eq = math.sqrt(pow(line.point2X - line.point1X, 2) + pow(line.point2Y - line.point1Y, 2))
+    return up_eq / low_eq
+
+def distanceFront():
+    global laser
+    dis = min(min(laser.ranges[0:40]),min(laser.ranges[325:359]))
+    #dis = laser.ranges[0]
+    rospy.loginfo("DISTANCIA FRENTE %s", dis)
+    return dis
+
+def distanceLeft():
+    global laser
+    dis = min(laser.ranges[40:130])
+    rospy.loginfo("DISTANCIA ESQUERDA %s", dis)
+    return dis
+
+def distanceRight():
+    global laser
+    dis = min(laser.ranges[260:280])
+    rospy.loginfo("DISTANCIA DIREITA %s", dis)
+    return dis
+
+
+
+if __name__ == "__main__": 
+    rospy.init_node("path_controller_node", anonymous=False)
+    listeners()
+    
+    env = Env()
+    state_scan = env.reset()
+    action = np.zeros(2)
+    bypass = False
+    inLine = True
+    poolDisLeft = 10.0
+    poolDisRight = 10.0
+
+    pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)    
+    r = rospy.Rate(5) # 10hz
+    velocity = Twist()
+    goal_aux = env.goal_numbers
+    line.setLine(env.position.x, env.position.y, env.goal_x,env.goal_y)
+
+    while not rospy.is_shutdown():
+        # FACA SEU CODIGO AQUI
+        #CODIGO
+        goal_angle = math.atan2(env.goal_y - env.position.y,env.goal_x-env.position.x)
+        rospy.loginfo("##### ALVO %s x: %s y: %s ## ROBO x: %s y: %s ## DISTANCIA: %s ## ANGULO %s ## HEADING %s", env.goal_numbers, env.goal_x,env.goal_y, env.position.x, env.position.y, calculateDistanceBetweenLineAndRobo(env.position.x,env.position.y), goal_angle, env.heading)
+        
+        
+        if(goal_aux != env.goal_numbers):
+            rospy.loginfo("###### RECALCULA LINHA #######")
+            goal_aux = env.goal_numbers
+            line.setLine(env.position.x, env.position.y, env.goal_x,env.goal_y)
+        
+        if(len(laser.ranges) > 0):
+            if(distanceFront() > SAFE_DISTANCE):
+                action[0] = LINEAR_VEL
+                action[1] = 0.
+                bypass = False
+            else:
+                for x in range(1,15):
+                    action[0] = 0.
+                    action[1] = ANGULAR_VEL
+                    env.step(action)
+                for x in range(1,5):
+                    action[0] = LINEAR_VEL
+                    action[1] = 0.
+                    env.step(action)
+                bypass = True
+                
+
+
+            
+            
+            if(distanceRight() - poolDisRight > 0.8):
+                for x in range(1,20):
+                    action[0] = 0.
+                    action[1] = ANGULAR_VEL*-1
+                    env.step(action)
+            elif(distanceLeft() - poolDisLeft > 0.8):
+                for x in range(1,20):
+                    action[0] = 0.
+                    action[1] = ANGULAR_VEL
+                    env.step(action)
+
+            poolDisRight = distanceRight()
+            poolDisLeft = distanceLeft()
+            state_scan = env.step(action)
+                    
+            r.sleep()

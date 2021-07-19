@@ -1,0 +1,19 @@
+Call:
+ randomForest(x = x, y = y, mtry = min(param$mtry, ncol(x))) 
+               Type of random forest: classification
+                     Number of trees: 500
+No. of variables tried at each split: 55
+
+        OOB estimate of  error rate: 50.09%
+Confusion matrix:
+     A  AA   B   C   D  E F G   H class.error
+A  481 145 279 132  29  1 0 0   2   0.5500468
+AA 161 441 112  42  17  1 0 0   1   0.4309677
+B  247  60 791 346  99  3 0 0   5   0.4900064
+C  141  38 297 954 220  3 0 0   7   0.4253012
+D   97  19 287 360 330  9 0 0   1   0.7008160
+E    6   1  22  58  59 23 0 2   9   0.8722222
+F    7   0   6   4   4  1 0 1   0   1.0000000
+G    5   0   5  10   5  3 0 5   6   0.8717949
+H   34   4  10  24  16  1 0 2 429   0.1750000
+

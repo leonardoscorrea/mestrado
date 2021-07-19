@@ -1,0 +1,311 @@
+codigo;nome_campo;descricao_campo;tipo_coluna;tamanho;categoria;
+1;NU_ANO_CENSO;Ano do Censo;Num;4;;
+2;CO_PESSOA_FISICA;Código do Docente;Num;12;;
+3;NU_DIA;Data de nascimento - dia;Num;2;DD;
+4;NU_MES;Data de nascimento - mês;Num;2;MM;
+5;NU_ANO;Data de nascimento - ano;Num;4;YYYY;
+6;NU_IDADE_REFERENCIA;Idade do docente no mês de referência do Censo Escolar (31 de maio);Num;3;;
+7;NU_IDADE;Idade calculada pelo ano de nascimento do docente;Num;3;;
+8;TP_SEXO;Sexo;Num;1;"1 - Masculino
+2 - Feminino";
+9;TP_COR_RACA;Cor/raça;Num;1;"0 - Não declarada
+1 - Branca
+2 - Preta
+3 - Parda
+4 - Amarela
+5 - Indígena";
+10;TP_NACIONALIDADE;Nacionalidade;Num;1;"1 - Brasileira
+2 - Brasileira - nascido no exterior ou naturalizado
+3 - Estrangeira";
+11;CO_PAIS_ORIGEM;Código do País de origem;Num;3;;
+12;CO_UF_NASC;Código da UF de nascimento;Num;2;;
+13;CO_MUNICIPIO_NASC;Código do Município de nascimento;Num;7;;
+14;CO_UF_END;Código da UF de residência;Num;2;;
+15;CO_MUNICIPIO_END;Código do Município de residência;Num;7;;
+16;TP_ZONA_RESIDENCIAL;Localização/Zona de Residência;Num;1;"1 - Urbana
+2 - Rural";
+17;IN_NECESSIDADE_ESPECIAL;Docente com deficiência;Num;1;"0 - Não
+1 - Sim";
+18;IN_CEGUEIRA;Docente com deficiência - Cegueira;Num;1;"0 - Não
+1 - Sim";
+19;IN_BAIXA_VISAO;Docente com deficiência - Baixa Visão;Num;1;"0 - Não
+1 - Sim";
+20;IN_SURDEZ;Docente com deficiência - Surdez;Num;1;"0 - Não
+1 - Sim";
+21;IN_DEF_AUDITIVA;Docente com deficiência - Deficiência Auditiva;Num;1;"0 - Não
+1 - Sim";
+22;IN_SURDOCEGUEIRA;Docente com deficiência - Surdocegueira;Num;1;"0 - Não
+1 - Sim";
+23;IN_DEF_FISICA;Docente com deficiência - Deficiência Física;Num;1;"0 - Não
+1 - Sim";
+24;IN_DEF_INTELECTUAL;Docente com deficiência - Deficiência Intelectual;Num;1;"0 - Não
+1 - Sim";
+25;IN_DEF_MULTIPLA;Docente com deficiência - Deficiência Múltipla;Num;1;"0 - Não
+1 - Sim";
+26;TP_ESCOLARIDADE;Escolaridade;Num;1;"1 - Fundamental incompleto
+2 - Fundamental completo
+3 - Ensino Médio completo
+4 - Superior completo";
+27;TP_NORMAL_MAGISTERIO;Docente possui ensino médio normal/magistério.;Num;1;"0 - Não
+1 - Sim
+2 - Sim - específico indígena
+3 - Não disponível (docente com superior em andamento ou concluído)";
+28;TP_SITUACAO_CURSO_1;Situação do curso superior 1;Num;1;"1 - Concluído
+2 - Em andamento";
+29;CO_AREA_CURSO_1;Código da Área do curso superior 1;Num;1;Ver Anexo 5 - Cursos de Formação Superior;
+30;CO_CURSO_1;Código do curso 1 da escolaridade superior;Char;6;Ver Anexo 5 - Cursos de Formação Superior;
+31;IN_LICENCIATURA_1;Possui Licenciatura no curso 1;Num;1;"0 - Não
+1 - Sim";
+32;IN_COM_PEDAGOGICA_1;Formação/complementação pedagógica do curso 1;Num;1;"0 - Não
+1 - Sim";
+33;NU_ANO_INICIO_1;Ano de início do curso superior 1 em andamento;Num;4;;
+34;NU_ANO_CONCLUSAO_1;Ano de conclusão do curso superior 1;Num;4;;
+35;TP_TIPO_IES_1;Tipo de instituição do curso superior 1;Num;1;"1 - Pública
+2 - Privada";
+36;CO_IES_1;Código da Instituição do curso 1;Num;7;Ver Anexo 6 - Tabela de IES;
+37;TP_SITUACAO_CURSO_2;Situação do curso superior 2;Num;1;"1 - Concluído
+2 - Em andamento";
+38;CO_AREA_CURSO_2;Código da Área do curso superior 2;Num;1;Ver Anexo 5 - Cursos de Formação Superior;
+39;CO_CURSO_2;Código do curso 2 da escolaridade superior;Char;6;Ver Anexo 5 - Cursos de Formação Superior;
+40;IN_LICENCIATURA_2;Possui Licenciatura no curso superior 2;Num;1;"0 - Não
+1 - Sim";
+41;IN_COM_PEDAGOGICA_2;Formação/complementação pedagógica do curso superior 2;Num;1;"0 - Não
+1 - Sim";
+42;NU_ANO_INICIO_2;Ano de início do curso superior 2 em andamento;Num;4;;
+43;NU_ANO_CONCLUSAO_2;Ano de conclusão do curso superior 2;Num;4;;
+44;TP_TIPO_IES_2;Tipo de instituição do curso superior 2;Num;1;"1 - Pública
+2 - Privada";
+45;CO_IES_2;Código da Instituição do curso superior 2;Num;7;Ver Anexo 6 - Tabela de IES;
+46;TP_SITUACAO_CURSO_3;Situação do curso superior 3;Num;1;"1 - Concluído
+2 - Em andamento";
+47;CO_AREA_CURSO_3;Código da Área do curso superior 3;Num;1;Ver Anexo 5 - Cursos de Formação Superior;
+48;CO_CURSO_3;Código do curso 3 da escolaridade superior;Char;6;Ver Anexo 5 - Cursos de Formação Superior;
+49;IN_LICENCIATURA_3;Possui Licenciatura no curso superior 3;Num;1;"0 - Não
+1 - Sim";
+50;IN_COM_PEDAGOGICA_3;Formação/complementação pedagógica do curso superior 3;Num;1;"0 - Não
+1 - Sim";
+51;NU_ANO_INICIO_3;Ano de início do curso superior 3 em andamento;Num;4;;
+52;NU_ANO_CONCLUSAO_3;Ano de conclusão do curso superior 3;Num;4;;
+53;TP_TIPO_IES_3;Tipo de instituição do curso superior 3;Num;1;"1 - Pública
+2 - Privada";
+54;CO_IES_3;Código da Instituição do curso superior 3;Num;7;Ver Anexo 6 - Tabela de IES;
+55;IN_DISC_QUIMICA;Disciplinas - Química;Num;1;"0 - Não
+1 - Sim";
+56;IN_DISC_FISICA;Disciplinas - Física;Num;1;"0 - Não
+1 - Sim";
+57;IN_DISC_MATEMATICA;Disciplinas - Matemática;Num;1;"0 - Não
+1 - Sim";
+58;IN_DISC_BIOLOGIA;Disciplinas - Biologia;Num;1;"0 - Não
+1 - Sim";
+59;IN_DISC_CIENCIAS;Disciplinas - Ciências;Num;1;"0 - Não
+1 - Sim";
+60;IN_DISC_LINGUA_PORTUGUESA;Disciplinas - Língua / Literatura Portuguesa;Num;1;"0 - Não
+1 - Sim";
+61;IN_DISC_LINGUA_INGLES;Disciplinas - Língua / Literatura estrangeira - Inglês;Num;1;"0 - Não
+1 - Sim";
+62;IN_DISC_LINGUA_ESPANHOL;Disciplinas - Língua / Literatura estrangeira - Espanhol;Num;1;"0 - Não
+1 - Sim";
+63;IN_DISC_LINGUA_FRANCES;Disciplinas - Língua / Literatura estrangeira - Francês;Num;1;"0 - Não
+1 - Sim";
+64;IN_DISC_LINGUA_OUTRA;Disciplinas - Língua / Literatura estrangeira - Outra;Num;1;"0 - Não
+1 - Sim";
+65;IN_DISC_LINGUA_INDIGENA;Disciplinas - Língua Indígena;Num;1;"0 - Não
+1 - Sim";
+66;IN_DISC_ARTES;Disciplinas - Artes (Educação Artística, Teatro, Dança, Música, Artes Plásticas e outras);Num;1;"0 - Não
+1 - Sim";
+67;IN_DISC_EDUCACAO_FISICA;Disciplinas - Educação Física;Num;1;"0 - Não
+1 - Sim";
+68;IN_DISC_HISTORIA;Disciplinas - História;Num;1;"0 - Não
+1 - Sim";
+69;IN_DISC_GEOGRAFIA;Disciplinas - Geografia;Num;1;"0 - Não
+1 - Sim";
+70;IN_DISC_FILOSOFIA;Disciplinas - Filosofia;Num;1;"0 - Não
+1 - Sim";
+71;IN_DISC_ENSINO_RELIGIOSO;Disciplinas - Ensino Religioso;Num;1;"0 - Não
+1 - Sim";
+72;IN_DISC_ESTUDOS_SOCIAIS;Disciplinas - Estudos Sociais;Num;1;"0 - Não
+1 - Sim";
+73;IN_DISC_SOCIOLOGIA;Disciplinas - Sociologia;Num;1;"0 - Não
+1 - Sim";
+74;IN_DISC_EST_SOCIAIS_SOCIOLOGIA;Disciplinas - Estudos Sociais ou Sociologia;Num;1;"0 - Não
+1 - Sim";
+75;IN_DISC_INFORMATICA_COMPUTACAO;Disciplinas - Informática / Computação;Num;1;"0 - Não
+1 - Sim";
+76;IN_DISC_PROFISSIONALIZANTE;Disciplinas - Disciplinas profissionalizantes;Num;1;"0 - Não
+1 - Sim";
+77;IN_DISC_ATENDIMENTO_ESPECIAIS;Disciplinas - Disciplinas voltadas ao atendimento às necessidades educacionais específicas dos alunos que são público alvo da educação especial a às práticas educacionais inclusivas;Num;1;"0 - Não
+1 - Sim";
+78;IN_DISC_DIVER_SOCIO_CULTURAL;Disciplinas - Disciplinas voltadas à diversidade sociocultural (Disciplinas pedagógicas);Num;1;"0 - Não
+1 - Sim";
+79;IN_DISC_LIBRAS;Disciplinas - Libras;Num;1;"0 - Não
+1 - Sim";
+80;IN_DISC_PEDAGOGICAS;Disciplinas - Disciplinas pedagógicas;Num;1;"0 - Não
+1 - Sim";
+81;IN_DISC_OUTRAS;Disciplinas - Outras disciplinas;Num;1;"0 - Não
+1 - Sim";
+82;IN_ESPECIALIZACAO;Pós-Graduação - Especialização;Num;1;"0 - Não
+1 - Sim";
+83;IN_MESTRADO;Pós-Graduação - Mestrado;Num;1;"0 - Não
+1 - Sim";
+84;IN_DOUTORADO;Pós-Graduação - Doutorado;Num;1;"0 - Não
+1 - Sim";
+85;IN_POS_NENHUM;Pós-Graduação - Nenhum;Num;1;"0 - Não
+1 - Sim";
+86;IN_ESPECIFICO_CRECHE;Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para creche (0 a 3 anos);Num;1;"0 - Não
+1 - Sim";
+87;IN_ESPECIFICO_PRE_ESCOLA;Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para pré-escola (4 e 5 anos);Num;1;"0 - Não
+1 - Sim";
+88;IN_ESPECIFICO_ANOS_INICIAIS;Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para anos iniciais do ensino fundamental;Num;1;"0 - Não
+1 - Sim";
+89;IN_ESPECIFICO_ANOS_FINAIS;Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para anos finais do ensino fundamental;Num;1;"0 - Não
+1 - Sim";
+90;IN_ESPECIFICO_ENS_MEDIO;Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para ensino médio;Num;1;"0 - Não
+1 - Sim";
+91;IN_ESPECIFICO_EJA;Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para educação de jovens e adultos;Num;1;"0 - Não
+1 - Sim";
+92;IN_ESPECIFICO_ED_ESPECIAL;Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para educação especial;Num;1;"0 - Não
+1 - Sim";
+93;IN_ESPECIFICO_ED_INDIGENA;Outros cursos - Formação Continuada com no mínimo 80 horas - Específico para educação indígena;Num;1;"0 - Não
+1 - Sim";
+94;IN_ESPECIFICO_CAMPO;Outros cursos - Formação Continuada com no mínimo 80 horas - Educação do Campo;Num;1;"0 - Não
+1 - Sim";
+95;IN_ESPECIFICO_AMBIENTAL;Outros cursos - Formação Continuada com no mínimo 80 horas - Educação Ambiental;Num;1;"0 - Não
+1 - Sim";
+96;IN_ESPECIFICO_DIR_HUMANOS;Outros cursos - Formação Continuada com no mínimo 80 horas - Educação em direitos humanos;Num;1;"0 - Não
+1 - Sim";
+97;IN_ESPECIFICO_DIV_SEXUAL;Outros cursos - Formação Continuada com no mínimo 80 horas - Gênero e Diversidade Sexual;Num;1;"0 - Não
+1 - Sim";
+98;IN_ESPECIFICO_DIR_ADOLESC;Outros cursos - Formação Continuada com no mínimo 80 horas - Direitos de criança e adolescente;Num;1;"0 - Não
+1 - Sim";
+99;IN_ESPECIFICO_AFRO;Outros cursos - Formação Continuada com no mínimo 80 horas - Educação para as relações etnicorracias e história e cultura afro-brasileira e africana;Num;1;"0 - Não
+1 - Sim";
+100;IN_ESPECIFICO_OUTROS;Outros cursos - Formação Continuada com no mínimo 80 horas - Outros;Num;1;"0 - Não
+1 - Sim";
+101;IN_ESPECIFICO_NENHUM;Outros cursos - Formação Continuada com no mínimo 80 horas - Nenhum;Num;1;"0 - Não
+1 - Sim";
+102;TP_TIPO_DOCENTE;Função que exerce na escola;Num;1;1 - Docente;
+;;;;;2 - Auxiliar/Assistente Educacional;
+;;;;;3 - Profissional/Monitor de atividade complementar;
+;;;;;4 - Tradutor Intérprete de Libras;
+;;;;;5 - Docente Titular - coordenador de tutoria (de módulo ou disciplina) - EAD;
+;;;;;6 - Docente Tutor - Auxiliar (de módulo ou disciplina) - EAD;
+103;TP_TIPO_CONTRATACAO;Situação Funcional/Regime de contratação/Tipo de Vínculo (Apenas para docente de escola pública);Num;1;1 - Concursado/efetivo/estável;
+;;;;;2 - Contrato temporário;
+;;;;;3 - Contrato terceirizado;
+;;;;;4 - Contrato CLT;
+104;ID_TURMA;Código único da Turma;Num;8;;
+105;TP_TIPO_TURMA;Tipo de atendimento;Num;1;0 - Não se aplica;
+;;;;;1 - Classe hospitalar;
+;;;;;2 - Unidade de atendimento socioeducativo;
+;;;;;3 - Unidade prisional;
+;;;;;4 - Atividade complementar;
+;;;;;5 - Atendimento Educacional Especializado (AEE);
+106;TP_MEDIACAO_DIDATICO_PEDAGO;Tipo de mediação didático-pedagógica;Num;1;"1 - Presencial
+2 - Semipresencial
+3 - Educação a Distância - EAD";
+107;IN_ESPECIAL_EXCLUSIVA;Docente de turma exclusiva de alunos com deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (Classes Especiais);Num;1;"0 - Não
+1 - Sim";
+108;IN_REGULAR;Modo, maneira ou metodologia de ensino correspondente às turmas com etapas de escolarização consecutivas, Creche ao Ensino Médio. Etapas consideradas (nas antigas modalidades 1 ou 2): TP_ETAPA_ENSINO igual a 1,2,3,56,4,5,6,7,8,9,10,11,12,13,14, 15,16,17,18,19,20,21,22,23,24,41,25,26,27,28,29,30,31, 32,33,34,35,36,37 ou 38.;Num;1;"0 - Não
+1 - Sim";
+109;IN_EJA;Modo, maneira ou metodologia de ensino correspondente às turmas destinadas a pessoas que não cursaram o ensino fundamental e/ou médio em idade própria. Etapas consideradas (nas antigas modalidades 2 ou 3): TP_ETAPA_ENSINO igual a 65,67,69,70,71,72,73 ou 74.;Num;1;"0 - Não
+1 - Sim";
+110;IN_PROFISSIONALIZANTE;"Modo profissionalizante de ensino correspondente às turmas de cursos de formação inicial e continuada ou de qualificação profissional (Cursos FIC) articulados à EJA ou concomitantes; ou de cursos técnicos de nível médio nas formas articulada (integrada ou concomitante) ou subsequente ao ensino médio e de normal/magistério. Etapas consideradas (nas antigas modalidades 1, 2 ou 3): TP_ETAPA_ENSINO igual a 30,31,32,33,34, 35,36,37,38,39,40,64,65,67,68,73 ou 74.";Num;1;"0 - Não
+1 - Sim";
+111;TP_ETAPA_ENSINO;Etapa de ensino da turma;Num;2;1 - Educação Infantil - Creche;
+;;;;;2 - Educação Infantil - Pré-escola;
+;;;;;3 - Educação Infantil - Unificada;
+;;;;;56 - Educação Infantil e Ensino Fundamental (8 e 9 anos) Multietapa;
+;;;;;4 - Ensino Fundamental de 8 anos - 1ª Série;
+;;;;;5 - Ensino Fundamental de 8 anos - 2ª Série;
+;;;;;6 - Ensino Fundamental de 8 anos - 3ª Série;
+;;;;;7 - Ensino Fundamental de 8 anos - 4ª Série;
+;;;;;8 - Ensino Fundamental de 8 anos - 5ª Série;
+;;;;;9 - Ensino Fundamental de 8 anos - 6ª Série;
+;;;;;10 - Ensino Fundamental de 8 anos - 7ª Série;
+;;;;;11 - Ensino Fundamental de 8 anos - 8ª Série;
+;;;;;12 - Ensino Fundamental de 8 anos - Multi;
+;;;;;13 - Ensino Fundamental de 8 anos - Correção de Fluxo;
+;;;;;14 - Ensino Fundamental de 9 anos - 1º Ano;
+;;;;;15 - Ensino Fundamental de 9 anos - 2º Ano;
+;;;;;16 - Ensino Fundamental de 9 anos - 3º Ano;
+;;;;;17 - Ensino Fundamental de 9 anos - 4º Ano;
+;;;;;18 - Ensino Fundamental de 9 anos - 5º Ano;
+;;;;;19 - Ensino Fundamental de 9 anos - 6º Ano;
+;;;;;20 - Ensino Fundamental de 9 anos - 7º Ano;
+;;;;;21 - Ensino Fundamental de 9 anos - 8º Ano;
+;;;;;41 - Ensino Fundamental de 9 anos - 9º Ano;
+;;;;;22 - Ensino Fundamental de 9 anos - Multi;
+;;;;;23 - Ensino Fundamental de 9 anos - Correção de Fluxo;
+;;;;;24 - Ensino Fundamental de 8 e 9 anos - Multi 8 e 9 anos;
+;;;;;25 - Ensino Médio - 1ª Série;
+;;;;;26 - Ensino Médio - 2ª Série;
+;;;;;27 - Ensino Médio - 3ª Série;
+;;;;;28 - Ensino Médio - 4ª Série;
+;;;;;29 - Ensino Médio - Não Seriada;
+;;;;;30 - Curso Técnico Integrado (Ensino Médio Integrado) 1ª Série;
+;;;;;31 - Curso Técnico Integrado (Ensino Médio Integrado) 2ª Série;
+;;;;;32 - Curso Técnico Integrado (Ensino Médio Integrado) 3ª Série;
+;;;;;33 - Curso Técnico Integrado (Ensino Médio Integrado) 4ª Série;
+;;;;;34 - Curso Técnico Integrado (Ensino Médio Integrado) Não Seriada;
+;;;;;35 - Ensino Médio - Normal/Magistério 1ª Série;
+;;;;;36 - Ensino Médio - Normal/Magistério 2ª Série;
+;;;;;37 - Ensino Médio - Normal/Magistério 3ª Série;
+;;;;;38 - Ensino Médio - Normal/Magistério 4ª Série;
+;;;;;39 - Curso Técnico - Concomitante;
+;;;;;40 - Curso Técnico - Subsequente;
+;;;;;64 - Curso Técnico Misto (Concomitante e Subsequente);
+;;;;;68 - Curso FIC Concomitante ;
+;;;;;65 - EJA - Ensino Fundamental - Projovem Urbano;
+;;;;;67 - Curso FIC integrado na modalidade EJA  - Nível Médio;
+;;;;;69 - EJA - Ensino Fundamental - Anos Iniciais;
+;;;;;70 - EJA - Ensino Fundamental - Anos Finais;
+;;;;;71 - EJA - Ensino Médio;
+;;;;;72 - EJA - Ensino Fundamental - Anos Iniciais e Anos Finais;
+;;;;;73 - Curso FIC integrado na modalidade EJA - Nível Fundamental (EJA integrada à Educação Profissional de Nível Fundamental) ;
+;;;;;74 - Curso Técnico Integrado na Modalidade EJA (EJA integrada à Educação Profissional de Nível Médio);
+112;CO_CURSO_EDUC_PROFISSIONAL;Curso da Educação Profissional Técnica;Num;5;Ver Anexo 2 - Cursos da Educação Profissional Técnica;
+113;CO_ENTIDADE;Código da Escola;Num;8;;
+114;CO_REGIAO;Código da região geográfica;Num;1;;
+115;CO_MESORREGIAO;Código da mesorregião;Num;4;;
+116;CO_MICRORREGIAO;Código da microrregião;Num;5;;
+117;CO_UF;Código da UF da escola;Num;2;;
+118;CO_MUNICIPIO;Código do Município da escola;Num;7;;
+119;CO_DISTRITO;Código completo do Distrito da escola;Num;9;;
+120;TP_DEPENDENCIA;Dependência Administrativa (Escola);Num;1;"1 - Federal
+2 - Estadual
+3 - Municipal
+4 - Privada";
+121;TP_LOCALIZACAO;Localização (Escola);Num;1;"1 - Urbana
+2 - Rural";
+122;TP_CATEGORIA_ESCOLA_PRIVADA;Categoria da escola privada;Num;1;"1 - Particular
+2 - Comunitária
+3 - Confessional
+4 - Filantrópica";
+123;IN_CONVENIADA_PP;Conveniada com o poder público (Escola);Num;1;"0 - Não
+1 - Sim";
+124;TP_CONVENIO_PODER_PUBLICO;Dependência do convênio com o poder público;Num;1;"1 - Municipal
+2 - Estadual
+3 - Estadual e Municipal";
+125;IN_MANT_ESCOLA_PRIVADA_EMP;Mantenedora da escola privada - Empresa, grupo empresarial do setor privado ou pessoa física;Num;1;"0 - Não
+1 - Sim";
+126;IN_MANT_ESCOLA_PRIVADA_ONG;Mantenedora da escola privada - Organização não governamental (ONG) - internacional ou nacional. Organização da Sociedade Civil de Interesse Público (Oscip);Num;1;"0 - Não
+1 - Sim";
+127;IN_MANT_ESCOLA_PRIVADA_SIND;Mantenedora da escola privada - Sindicatos de trabalhadores ou patronais, associações e cooperativas.;Num;1;"0 - Não
+1 - Sim";
+128;IN_MANT_ESCOLA_PRIVADA_SIST_S;Mantenedora da escola privada - Sistema S (Sesi, Senai, Sesc, Outros);Num;1;"0 - Não
+1 - Sim";
+129;IN_MANT_ESCOLA_PRIVADA_S_FINS;Mantenedora da escola privada - Instituições sem fins lucrativos;Num;1;"0 - Não
+1 - Sim";
+130;TP_REGULAMENTACAO;Regulamentação/Autorização no conselho ou órgão municipal, estadual ou federal de educação;Num;1;"0 - Não
+1 - Sim
+2 - Em tramitação";
+131;TP_LOCALIZACAO_DIFERENCIADA;Localização diferenciada da escola;Num;1;"0 - Não se aplica
+1 - Área de assentamento
+2 - Terra indígena
+3 - Área remanescente de quilombos
+4 - Unidade de uso sustentável
+5 - Unidade de uso sustentável em terra indígena
+6 - Unidade de uso sustentável em área 
+remanescente de quilombos";
+132;IN_EDUCACAO_INDIGENA;Escola Indígena;Num;1;"0 - Não
+1 - Sim";

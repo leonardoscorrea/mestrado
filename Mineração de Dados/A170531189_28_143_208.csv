@@ -1,0 +1,19 @@
+ Internações Hospitalares do SUS - por local de internação - Brasil
+Internações por Região
+Período:Jan/2021
+"Região";"Internações"
+"Região Norte";76338
+"Região Nordeste";230183
+"Região Sudeste";357987
+"Região Sul";151999
+"Região Centro-Oeste";72174
+"Total";888681
+ Fonte: Ministério da Saúde - Sistema de Informações Hospitalares do SUS (SIH/SUS)
+ Notas:
+ 
+ Situação da base de dados nacional em 06/01/2014.
+ Dados de 2013 (até novembro) sujeitos a retificação.
+ A partir do processamento de junho de 2012, houve mudança na classificação da natureza e esfera/regime dos estabelecimentos.
+ Até maio de 2012 estas informações estão disponíveis como "Natureza" e "Regime". A partir de junho de 2012, estão como "Natureza Jurídica" e
+ "Esfera Jurídica".
+ 

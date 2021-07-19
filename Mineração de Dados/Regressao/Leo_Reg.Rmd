@@ -1,0 +1,64 @@
+---
+title: "Regressão"
+author: "Leonardo"
+date: "25/06/2021"
+output: pdf_document
+---
+
+```{r}
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(randomForest)
+library(kernlab)
+library(Metrics)
+library(bst)
+```
+
+
+```{r}
+data(Theoph)
+data = Theoph
+plot(data)
+```
+
+# Separação dos dados
+```{r}
+set.seed(1000)
+div = createDataPartition(data$conc,p=0.75,list=FALSE) 
+treinoData =  data[div,] 
+testeData =  data[-div,]
+```
+
+# utilizando o algoritmo "svmLinear".
+```{r}
+model_svm = train(conc ~ ., data = data, method = "svmLinear")
+
+```
+
+# Medidas de qualidade e grafico
+```{r}
+resultado1 = predict(model_svm, testeData)
+qualidade1 = rmse(testeData$conc,resultado1)
+qualidade2 = rrse(testeData$conc,resultado1)
+qualidade1
+qualidade2
+qplot(resultado1, testeData$conc) + geom_abline(intercept = 0, slope = 1)
+```
+
+
+
+# Treinando meu segundo modelo, utilizando o algoritmo "BstLm".
+```{r}
+model_bst = train(conc ~ ., data = data, method = "BstLm")
+```
+
+# Metrica e grafico
+```{r}
+resultado2 = predict(model_bst, testeData)
+qualidadeM1 = rmse(testeData$conc,resultado2)
+qualidadeM2 = rrse(testeData$conc,resultado2)
+qualidadeM1
+qualidadeM2
+qplot(resultado2, testeData$conc) + geom_abline(intercept = 0, slope = 1)
+```

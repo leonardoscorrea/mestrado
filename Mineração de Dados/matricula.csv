@@ -1,0 +1,238 @@
+codigo;nome_campo;descricao_campo;tipo_coluna;tamanho;categoria;;;
+1;NU_ANO_CENSO;Ano do Censo;Num;4;;;;
+2;ID_MATRICULA;Código único da matrícula;Num;8;;;;
+3;CO_PESSOA_FISICA;Código do aluno (ID_INEP);Num;12;;;;
+4;NU_DIA;Data de nascimento do aluno - dia;Num;2;DD;;;
+5;NU_MES;Data de nascimento do aluno - mês;Num;2;MM;;;
+6;NU_ANO;Data de nascimento do aluno - ano;Num;4;YYYY;;;
+7;NU_IDADE_REFERENCIA;Idade do aluno no mês de referência do Censo Escolar (31 de maio);Num;3;;;;
+8;NU_IDADE;Idade calculada pelo ano de nascimento do aluno;Num;3;;;;
+9;NU_DURACAO_TURMA;Tempo de permanência na turma da matrícula do aluno - minutos;Num;4;;;;
+10;NU_DUR_ATIV_COMP_MESMA_REDE;Tempo de permanência (em minutos) na turma de atividade complementar na mesma rede da turma de escolarização 2,3;Num;4;;;;
+11;NU_DUR_ATIV_COMP_OUTRAS_REDES;Tempo de permanência (em minutos) na turma de atividade complementar em outras redes 2,3;Num;4;;;;
+12;NU_DUR_AEE_MESMA_REDE;Tempo de permanência (em minutos) na turma de atendimento educacional especializado (AEE) na mesma rede da turma de escolarização 2,3;Num;4;;;;
+13;NU_DUR_AEE_OUTRAS_REDES;Tempo de permanência (em minutos) na turma de atendimento educacional especializado (AEE) em outras redes 2,3;Num;4;;;;
+14;NU_DIAS_ATIVIDADE;Número de dias por semana em que são realizadas as atividades da turma;Num;1;"1 - Uma vez por semana
+2 - Duas vezes por semana
+3 - Três vezes por semana
+4 - Quatro vezes por semana
+5 - Cinco vezes por semana
+6 - Seis vezes por semana
+7 - Sete vezes por semana";;;
+15;TP_SEXO;Sexo;Num;1;"1 - Masculino
+2 - Feminino";;;
+16;TP_COR_RACA;Cor/raça;Num;1;"0 - Não declarada
+1 - Branca
+2 - Preta
+3 - Parda
+4 - Amarela
+5 - Indígena";;;
+17;TP_NACIONALIDADE;Nacionalidade;Num;1;"1 - Brasileira
+2 - Brasileira - nascido no exterior ou naturalizado
+3 - Estrangeira";;;
+18;CO_PAIS_ORIGEM;Código País de origem;Num;3;Ver Anexo 4;;;
+19;CO_UF_NASC;Código UF de nascimento;Num;2;;;;
+20;CO_MUNICIPIO_NASC;Código Município de nascimento;Num;7;;;;
+21;CO_UF_END;Código UF de residência;Num;2;;;;
+22;CO_MUNICIPIO_END;Código Município de residência;Num;7;;;;
+23;TP_ZONA_RESIDENCIAL;Localização/Zona de residência;Num;1;"1 - Urbana
+2 - Rural";;;
+24;TP_OUTRO_LOCAL_AULA;Recebe escolarização em outro espaço (diferente da escola);Num;1;"1 - Em hospital
+2 - Em domicílio
+3 - Não recebe";;;
+25;IN_TRANSPORTE_PUBLICO;Transporte escolar público;Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+26;TP_RESPONSAVEL_TRANSPORTE;Poder público responsável pelo transporte escolar;Num;1;"1 - Estadual
+2 - Municipal";;;
+27;IN_TRANSP_VANS_KOMBI;Tipo de veículo utilizado no transporte escolar - Rodoviário (Vans/VW Kombi);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+28;IN_TRANSP_MICRO_ONIBUS;Tipo de veículo utilizado no transporte escolar - Rodoviário (Micro-ônibus);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+29;IN_TRANSP_ONIBUS;Tipo de veículo utilizado no transporte escolar - Rodoviário (Ônibus);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+30;IN_TRANSP_BICICLETA;Tipo de veículo utilizado no transporte escolar - Rodoviário (Bicicleta);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+31;IN_TRANSP_TR_ANIMAL;Tipo de veículo utilizado no transporte escolar -  Rodoviário (Tração Animal);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+32;IN_TRANSP_OUTRO_VEICULO;Tipo de veículo utilizado no transporte escolar -  Rodoviário (Outro tipo de veículo rodoviário);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+33;IN_TRANSP_EMBAR_ATE5;Tipo de veículo utilizado no transporte escolar Aquaviário/Embarcação (Capacidade de até 5 alunos);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+34;IN_TRANSP_EMBAR_5A15;Tipo de veículo utilizado no transporte escolar Aquaviário/Embarcação (Capacidade de 5 a 15 alunos);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+35;IN_TRANSP_EMBAR_15A35;Tipo de veículo utilizado no transporte escolar Aquaviário/Embarcação (Capacidade de 15 a 35 alunos);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+36;IN_TRANSP_EMBAR_35;Tipo de veículo utilizado no transporte escolar Aquaviário/Embarcação (Capacidade acima de 35 alunos);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+37;IN_TRANSP_TREM_METRO;Tipo de veículo utilizado no transporte escolar Ferroviário (Trem/Metrô);Num;1;"0 - Não utiliza
+1 - Utiliza";;;
+38;IN_NECESSIDADE_ESPECIAL;Aluno com deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação;Num;1;"0 - Não
+1 - Sim";;;
+39;IN_CEGUEIRA;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (cegueira);Num;1;"0 - Não
+1 - Sim";;;
+40;IN_BAIXA_VISAO;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (baixa visão);Num;1;"0 - Não
+1 - Sim";;;
+41;IN_SURDEZ;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (surdez);Num;1;"0 - Não
+1 - Sim";;;
+42;IN_DEF_AUDITIVA;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (deficiência auditiva);Num;1;"0 - Não
+1 - Sim";;;
+43;IN_SURDOCEGUEIRA;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (surdocegueira);Num;1;"0 - Não
+1 - Sim";;;
+44;IN_DEF_FISICA;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (deficiência física);Num;1;"0 - Não
+1 - Sim";;;
+45;IN_DEF_INTELECTUAL;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (deficiência intelectual);Num;1;"0 - Não
+1 - Sim";;;
+46;IN_DEF_MULTIPLA;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (deficiência múltipla);Num;1;"0 - Não
+1 - Sim";;;
+47;IN_AUTISMO;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (Autismo infantil);Num;1;"0 - Não
+1 - Sim";;;
+48;IN_SINDROME_ASPERGER;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (Síndrome de Asperger);Num;1;"0 - Não
+1 - Sim";;;
+49;IN_SINDROME_RETT;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (Síndrome de Rett);Num;1;"0 - Não
+1 - Sim";;;
+50;IN_TRANSTORNO_DI;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (Transtorno desintegrativo da infância);Num;1;"0 - Não
+1 - Sim";;;
+51;IN_SUPERDOTACAO;Tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (altas habilidades/superdotação);Num;1;"0 - Não
+1 - Sim";;;
+52;IN_RECURSO_LEDOR;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Auxílio Ledor;Num;1;"0 - Não
+1 - Sim";;;
+53;IN_RECURSO_TRANSCRICAO;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Auxílio-Transcrição;Num;1;"0 - Não
+1 - Sim";;;
+54;IN_RECURSO_INTERPRETE;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Guia-Intérprete;Num;1;"0 - Não
+1 - Sim";;;
+55;IN_RECURSO_LIBRAS;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Intérprete de Libras;Num;1;"0 - Não
+1 - Sim";;;
+56;IN_RECURSO_LABIAL;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Leitura Labial;Num;1;"0 - Não
+1 - Sim";;;
+57;IN_RECURSO_BRAILLE;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova em Braille;Num;1;"0 - Não
+1 - Sim";;;
+58;IN_RECURSO_AMPLIADA_16;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova Ampliada (Fonte tamanho 16);Num;1;"0 - Não
+1 - Sim";;;
+59;IN_RECURSO_AMPLIADA_20;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova Ampliada (Fonte tamanho 20);Num;1;"0 - Não
+1 - Sim";;;
+60;IN_RECURSO_AMPLIADA_24;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Prova Ampliada (Fonte tamanho 24);Num;1;"0 - Não
+1 - Sim";;;
+61;IN_RECURSO_NENHUM;Recursos necessários para a participação do aluno em avaliações do Inep (Prova Brasil, Saeb, outros) - Nenhum;Num;1;"0 - Não
+1 - Sim";;;
+62;TP_INGRESSO_FEDERAIS;Forma de ingresso do aluno (apenas alunos de escolas federais das Etapas: Educação Profissional (39 e 40), Ensino Médio Integrado (30, 31, 32, 33 e 34), EJA - Presencial - Integrado à Ed. Profissional de Nível Médio (62) e EJA - Semipresencial - Integrado à Ed. Profissional de Nível Médio (63),.;Num;1;"1 - Sem processo seletivo
+2 - Sorteio
+3 - Transferência
+4 - Exame de seleção sem reserva de vaga
+5 - Exame de seleção, vaga reservada para alunos da rede pública de ensino
+6 - Exame de seleção, vaga reservada para alunos da rede pública de ensino, com baixa renda e autodeclarado preto, pardo ou indígena
+7 - Exame de seleção, vaga reservada para outros programas de ação afirmativa
+8 - Outra forma de ingresso
+9 - Exame de seleção, vaga reservada para alunos da rede pública de ensino, com baixa renda";;;
+63;TP_MEDIACAO_DIDATICO_PEDAGO;Tipo de mediação didático-pedagógica;Num;1;"1 - Presencial
+2 - Semipresencial
+3 - Educação a Distância - EAD";;;
+64;IN_ESPECIAL_EXCLUSIVA;Aluno de turma exclusiva de alunos com deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação (Classes Especiais);Num;1;"0 - Não
+1 - Sim";;;
+65;IN_REGULAR;Modo, maneira ou metodologia de ensino correspondente às turmas com etapas de escolarização consecutivas, Creche ao Ensino Médio. Etapas consideradas (nas antigas modalidades 1 ou 2): TP_ETAPA_ENSINO igual a 1,2,4,5,6,7,8,9,10,11,14, 15,16,17,18,19,20,21,41,25,26,27,28,29,30,31, 32,33,34,35,36,37 ou 38.;Num;1;"0 - Não
+1 - Sim";;;
+66;IN_EJA;Modo, maneira ou metodologia de ensino correspondente às turmas destinadas a pessoas que não cursaram o ensino fundamental e/ou médio em idade própria. Etapas consideradas (nas antigas modalidades 2 ou 3): TP_ETAPA_ENSINO igual a 65,67,69,70,71,73 ou 74.;Num;1;"0 - Não
+1 - Sim";;;
+67;IN_PROFISSIONALIZANTE;"Modo profissionalizante de ensino correspondente às turmas de cursos de formação inicial e continuada ou de qualificação profissional (Cursos FIC) articulados à EJA ou concomitantes; ou de cursos técnicos de nível médio nas formas articulada (integrada ou concomitante) ou subsequente ao ensino médio e de normal/magistério. Etapas consideradas (nas antigas modalidades 1, 2 ou 3): TP_ETAPA_ENSINO igual a 30,31,32,33,34, 35,36,37,38,39,40,65,67,68,73 ou 74.";Num;1;"0 - Não
+1 - Sim";;;
+68;TP_ETAPA_ENSINO;Etapa de ensino da matrícula;Num;2;1 - Educação Infantil - Creche;;;
+;;;;;2 - Educação Infantil - Pré-escola;;;
+;;;;;4 - Ensino Fundamental de 8 anos - 1ª Série;;;
+;;;;;5 - Ensino Fundamental de 8 anos - 2ª Série;;;
+;;;;;6 - Ensino Fundamental de 8 anos - 3ª Série;;;
+;;;;;7 - Ensino Fundamental de 8 anos - 4ª Série;;;
+;;;;;8 - Ensino Fundamental de 8 anos - 5ª Série;;;
+;;;;;9 - Ensino Fundamental de 8 anos - 6ª Série;;;
+;;;;;10 - Ensino Fundamental de 8 anos - 7ª Série;;;
+;;;;;11 - Ensino Fundamental de 8 anos - 8ª Série;;;
+;;;;;14 - Ensino Fundamental de 9 anos - 1º Ano;;;
+;;;;;15 - Ensino Fundamental de 9 anos - 2º Ano;;;
+;;;;;16 - Ensino Fundamental de 9 anos - 3º Ano;;;
+;;;;;17 - Ensino Fundamental de 9 anos - 4º Ano;;;
+;;;;;18 - Ensino Fundamental de 9 anos - 5º Ano;;;
+;;;;;19 - Ensino Fundamental de 9 anos - 6º Ano;;;
+;;;;;20 - Ensino Fundamental de 9 anos - 7º Ano;;;
+;;;;;21 - Ensino Fundamental de 9 anos - 8º Ano;;;
+;;;;;41 - Ensino Fundamental de 9 anos - 9º Ano;;;
+;;;;;25 - Ensino Médio - 1ª Série;;;
+;;;;;26 - Ensino Médio - 2ª Série;;;
+;;;;;27 - Ensino Médio - 3ª Série;;;
+;;;;;28 - Ensino Médio - 4ª Série;;;
+;;;;;29 - Ensino Médio - Não Seriada;;;
+;;;;;30 - Curso Técnico Integrado (Ensino Médio Integrado) 1ª Série;;;
+;;;;;31 - Curso Técnico Integrado (Ensino Médio Integrado) 2ª Série;;;
+;;;;;32 - Curso Técnico Integrado (Ensino Médio Integrado) 3ª Série;;;
+;;;;;33 - Curso Técnico Integrado (Ensino Médio Integrado) 4ª Série;;;
+;;;;;34 - Curso Técnico Integrado (Ensino Médio Integrado) Não Seriada;;;
+;;;;;35 - Ensino Médio - Normal/Magistério 1ª Série;;;
+;;;;;36 - Ensino Médio - Normal/Magistério 2ª Série;;;
+;;;;;37 - Ensino Médio - Normal/Magistério 3ª Série;;;
+;;;;;38 - Ensino Médio - Normal/Magistério 4ª Série;;;
+;;;;;39 - Curso Técnico - Concomitante;;;
+;;;;;40 - Curso Técnico - Subsequente;;;
+;;;;;68 - Curso FIC Concomitante ;;;
+;;;;;65 - EJA - Ensino Fundamental - Projovem Urbano;;;
+;;;;;67 - Curso FIC integrado na modalidade EJA  - Nível Médio;;;
+;;;;;69 - EJA - Ensino Fundamental -  Anos iniciais;;;
+;;;;;70 - EJA - Ensino Fundamental -  Anos finais;;;
+;;;;;71 - EJA - Ensino Médio;;;
+;;;;;73 - Curso FIC integrado na modalidade EJA - Nível Fundamental (EJA integrada à Educação Profissional de Nível Fundamental);;;
+;;;;;74 - Curso Técnico Integrado na Modalidade EJA (EJA integrada à Educação Profissional de Nível Médio);;;
+69;ID_TURMA;Código único da Turma;Num;8;;;;
+70;CO_CURSO_EDUC_PROFISSIONAL;Curso da Educação Profissional Técnica;Num;5;Ver Anexo 2 - Cursos da Educação Profissional Técnica;;;
+71;TP_UNIFICADA;Unificada, multietapa, multi ou correção de fluxo;Num;1;"0 - Não
+1 - Unificada
+2 - Multietapa
+3 - Multi
+4 - Correção de fluxo
+5 - Mista (Concomitante e Subsequente)";;;
+72;TP_TIPO_TURMA;Tipo de atendimento;Num;1;"0 - Não se aplica
+1 - Classe hospitalar
+2 - Unidade de atendimento socioeducativo
+3 - Unidade prisional";;;
+;;;;;4 - Atividade complementar;;;
+;;;;;5 - Atendimento Educacional Especializado (AEE);;;
+73;CO_ENTIDADE;Código da Escola;Num;8;;;;
+74;CO_REGIAO;Código da região geográfica;Num;1;;;;
+75;CO_MESORREGIAO;Código da mesorregião;Num;4;;;;
+76;CO_MICRORREGIAO;Código da microrregião;Num;5;;;;
+77;CO_UF;Código UF da escola;Num;2;;;;
+78;CO_MUNICIPIO;Código Município da escola;Num;7;;;;
+79;CO_DISTRITO;Código completo do Distrito da escola;Num;9;;;;
+80;TP_DEPENDENCIA;Dependência Administrativa (Escola);Num;1;"1 - Federal
+2 - Estadual
+3 - Municipal
+4 - Privada";;;
+81;TP_LOCALIZACAO;Localização (Escola);Num;1;"1 - Urbana
+2 - Rural";;;
+82;TP_CATEGORIA_ESCOLA_PRIVADA;Categoria da escola privada;Num;1;"1 - Particular
+2 - Comunitária
+3 - Confessional
+4 - Filantrópica";;;
+83;IN_CONVENIADA_PP;Conveniada com o poder público (Escola);Num;1;"0 - Não
+1 - Sim";;;
+84;TP_CONVENIO_PODER_PUBLICO;Dependência do convênio com o poder público;Num;1;"1 - Municipal
+2 - Estadual
+3 - Estadual e Municipal";;;
+85;IN_MANT_ESCOLA_PRIVADA_EMP;Mantenedora da escola privada - Empresa, grupo empresarial do setor privado ou pessoa física;Num;1;"0 - Não
+1 - Sim";;;
+86;IN_MANT_ESCOLA_PRIVADA_ONG;Mantenedora da escola privada - Organização não governamental (ONG) - internacional ou nacional. Organização da Sociedade Civil de Interesse Público (Oscip);Num;1;"0 - Não
+1 - Sim";;;
+87;IN_MANT_ESCOLA_PRIVADA_SIND;Mantenedora da escola privada - Sindicatos de trabalhadores ou patronais, associações e cooperativas.;Num;1;"0 - Não
+1 - Sim";;;
+88;IN_MANT_ESCOLA_PRIVADA_SIST_S;Mantenedora da escola privada - Sistema S (Sesi, Senai, Sesc, Outros);Num;1;"0 - Não
+1 - Sim";;;
+89;IN_MANT_ESCOLA_PRIVADA_S_FINS;Mantenedora da escola privada - Instituições sem fins lucrativos;Num;1;"0 - Não
+1 - Sim";;;
+90;TP_REGULAMENTACAO;Regulamentação/Autorização no conselho ou órgão municipal, estadual ou federal de educação;Num;1;"0 - Não
+1 - Sim
+2 - Em tramitação";;;
+91;TP_LOCALIZACAO_DIFERENCIADA;Localização diferenciada da escola;Num;1;"0 - Não se aplica
+1 - Área de assentamento
+2 - Terra indígena
+3 - Área remanescente de quilombos
+4 - Unidade de uso sustentável
+5 - Unidade de uso sustentável em terra indígena
+6 - Unidade de uso sustentável em área 
+remanescente de quilombos";;;
+92;IN_EDUCACAO_INDIGENA;Escola Indígena;Num;1;"0 - Não
+1 - Sim";;;

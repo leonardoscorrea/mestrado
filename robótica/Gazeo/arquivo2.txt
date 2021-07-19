@@ -1,0 +1,27 @@
+if(distanceLeft() > SAFE_DISTANCE and distanceRight() > SAFE_DISTANCE and distanceFront() > SAFE_DISTANCE):
+                action[0] = LINEAR_VEL
+                action[1] = 0.
+            elif(distanceLeft() > SAFE_DISTANCE and distanceRight() > SAFE_DISTANCE and distanceFront()<SAFE_DISTANCE):
+                action[0] = 0.
+                action[1] = ANGULAR_VEL
+            elif(distanceLeft() > SAFE_DISTANCE and distanceRight() < SAFE_DISTANCE and distanceFront()>SAFE_DISTANCE):
+                action[0] = LINEAR_VEL
+                action[1] = 0.
+            elif(distanceLeft() < SAFE_DISTANCE and distanceRight() > SAFE_DISTANCE and distanceFront()>SAFE_DISTANCE):
+                action[0] = LINEAR_VEL
+                action[1] = 0.
+            elif(distanceLeft() > SAFE_DISTANCE and distanceRight() < SAFE_DISTANCE and distanceFront()<SAFE_DISTANCE):
+                action[0] = 0.
+                action[1] = ANGULAR_VEL
+            elif(distanceLeft() < SAFE_DISTANCE and distanceRight() < SAFE_DISTANCE and distanceFront()>SAFE_DISTANCE):
+                action[0] = LINEAR_VEL
+                action[1] = 0.
+            elif(distanceLeft() < SAFE_DISTANCE and distanceRight() > SAFE_DISTANCE and distanceFront()<SAFE_DISTANCE):
+                action[0] = 0.
+                action[1] = ANGULAR_VEL*-1
+            elif(distanceLeft() < SAFE_DISTANCE and distanceRight() > SAFE_DISTANCE and distanceFront()>SAFE_DISTANCE):
+                action[0] = LINEAR_VEL
+                action[1] = 0.
+            elif(distanceLeft() < SAFE_DISTANCE and distanceRight() < SAFE_DISTANCE and distanceFront()<SAFE_DISTANCE):
+                action[0] = 0.
+                action[1] = ANGULAR_VEL
