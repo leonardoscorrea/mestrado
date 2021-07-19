@@ -110,6 +110,7 @@ if __name__ == "__main__":
     distanceLine = 0.0
     walkAfterTurn = False
     readLine = True
+    state = 0 # 0: estado de andar na linha, 1: entado de contornar obstaculo 2: estado de aproximacao do alvo
     stepsTurnWall = 0
     line.setLine(env.position.x, env.position.y, env.goal_x,env.goal_y)
 
@@ -119,7 +120,8 @@ if __name__ == "__main__":
         if(goal_aux != env.goal_numbers):
             goal_aux = env.goal_numbers
             line.setLine(env.position.x, env.position.y, env.goal_x,env.goal_y)
-            readLine = True
+            #readLine = True
+            state = 0
             stepsTurnWall = 0
         distanceLine = calculateDistanceBetweenLineAndRobo(env.position.x, env.position.y)
 
@@ -128,23 +130,38 @@ if __name__ == "__main__":
             #goal_angle = math.atan2(env.goal_y - env.position.y,env.goal_x-env.position.x)
             goal_angle = calculateAngle(env.position.x, env.position.y)
 
-            if(readLine and (stepsTurnWall == 0 or stepsTurnWall > 5)):
-                if(distanceFront() > SAFE_DISTANCE and distanceRightFront() > SAFE_DISTANCE and distanceLeftFront() > SAFE_DISTANCE and distanceLine <0.3):
-                    mesage = "[Line 1] front > safe, right > safe, left > safe == WALK"
+            #if(readLine and (stepsTurnWall == 0 or stepsTurnWall > 5)):
+            if(state == 0 and (stepsTurnWall == 0 or stepsTurnWall > 5)):
+                if(env.heading > 0.2 and env.heading):
+                    mesage = "[Line 1] Heading positivo : LEFT"
+                    velocity = turnLeft()
+                if(env.heading < -0.2):
+                    mesage = "[Line 2] Heading negativo : RIGHT"
+                    velocity = turnRight()
+                elif(distanceFront() > SAFE_DISTANCE):
+                    mesage = "[Line 3] front > safe, right > safe, left > safe == WALK"
                     velocity = walk()
+                elif(distanceFront() < SAFE_DISTANCE):
+                    #readLine=False
+                    state = 1
+                #if(readLine):
+                if(state == 0):
+                    rospy.loginfo(mesage)
+                    rospy.loginfo("position x:%s y:%s, goal x:%s y:%s, distancia: %s, heading: %s, angulo: %s", env.position.x, env.position.y, line.point2X, line.point2Y, calculateDistanceBetweenLineAndRobo(env.position.x, env.position.y), env.heading, goal_angle)
+                    beforeGoalDistance = env.getGoalDistace()
+                    #pub.publish(velocity)
+                    action[0] = velocity.linear.x
+                    action[1] = velocity.angular.z
+                    state_scan = env.step(action)
                 else:
-                    readLine=False
-                rospy.loginfo(mesage)
-                rospy.loginfo("position x:%s y:%s, goal x:%s y:%s, distancia: %s, heading: %s, angulo: %s", env.position.x, env.position.y, line.point2X, line.point2Y, calculateDistanceBetweenLineAndRobo(env.position.x, env.position.y), env.heading, goal_angle)
-                beforeGoalDistance = env.getGoalDistace()
-                #pub.publish(velocity)
-                action[0] = velocity.linear.x
-                action[1] = velocity.angular.z
-                state_scan = env.step(action)
-            else:
+                    rospy.loginfo("############# CONTORNA OBSTACULO ##############")
+            elif(state == 1):
                 stepsTurnWall += 1
                 if(distanceFront() > SAFE_DISTANCE and distanceRightFront() > SAFE_DISTANCE and distanceLeftFront() > SAFE_DISTANCE and distanceLine <0.3):
                     mesage = "[1] front > safe, right > safe, left > safe == WALK"
+                    velocity = walk()
+                elif(distanceFront() > SAFE_DISTANCE and (env.heading > -0.2 and env.heading < 0.2)):
+                    mesage = "[12] front > safe, heading > -0.2 and < 0.2"
                     velocity = walk()
                 elif(distanceFront() > SAFE_DISTANCE and distanceRightFront() > SAFE_DISTANCE and distanceLeftFront() > SAFE_DISTANCE and distanceLine > 0.3):
                     mesage = "[10] front > safe, right > safe, left > safe == TURN TO RIGHT"
@@ -176,12 +193,18 @@ if __name__ == "__main__":
                 else:
                     mesage = "[0] NENHUMA ACAO"
                 rospy.loginfo(mesage)
-                rospy.loginfo("position x:%s y:%s, goal x:%s y:%s, distancia: %s, heading: %s, angulo: %s", env.position.x, env.position.y, line.point2X, line.point2Y, calculateDistanceBetweenLineAndRobo(env.position.x, env.position.y), env.heading, goal_angle)
+                rospy.loginfo("position x:%s y:%s, goal x:%s y:%s, distancia: %s, heading: %s, angulo: %s, goal_distance: %s", env.position.x, env.position.y, line.point2X, line.point2Y, calculateDistanceBetweenLineAndRobo(env.position.x, env.position.y), env.heading, goal_angle, env.goal_distance)
                 beforeGoalDistance = env.getGoalDistace()
                 #pub.publish(velocity)
                 action[0] = velocity.linear.x
                 action[1] = velocity.angular.z
-                state_scan = env.step(action)    
+                state_scan = env.step(action)   
+                if(distanceLine > -0.3 and distanceLine < 0.3 and stepsTurnWall > 70):
+                    #readLine = True
+                    state = 0
+            else:
+                rospy("###### APROXIMA ######")
+                     
 
             
             r.sleep()
