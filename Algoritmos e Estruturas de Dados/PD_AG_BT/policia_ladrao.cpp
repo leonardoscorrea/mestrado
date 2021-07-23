@@ -38,9 +38,73 @@ void iniciaMatriz()
     }
 }
 
+void imprimeMatriz()
+{
+    for (int i = 0; i < TAMANHO; i++)
+    {
+        for (int j = 0; j < TAMANHO; j++)
+        {
+            cout << matriz[i][j] << " ";
+        }
+        cout << "\n";
+    }
+    cout << "\n";
+}
+/*
+bool validaPosicao(int linha, int coluna)
+{
+}
+
+bool valida()
+{
+    for (int l = 0; l < TAMANHO; l++)
+    {
+        for (int c = 0; c < TAMANHO; c++)
+        {
+        }
+    }
+}*/
+
 int getInput()
 {
     iniciaMatriz();
+    int l = 0, c = 0;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 1;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 0;
+    l++;
+    c = 0;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 1;
+    matriz[l][c++] = 0;
+    l++;
+    c = 0;
+    matriz[l][c++] = 1;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 1;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 0;
+    l++;
+    c = 0;
+    matriz[l][c++] = 1;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 1;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 1;
+    l++;
+    c = 0;
+    matriz[l][c++] = 1;
+    matriz[l][c++] = 1;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 0;
+    matriz[l][c++] = 0;
+    imprimeMatriz();
+
+    //valida();
 
     /*int number;
     string line;

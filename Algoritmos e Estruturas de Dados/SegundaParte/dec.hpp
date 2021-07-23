@@ -1,0 +1,12 @@
+typedef struct linha Linha;
+typedef struct matriz Matriz;
+int somaElementosAcimaDiagonalPrincipal(int tamanhoMatris, int chaveAleatoriedade);
+int buscaSimples(int valor);
+int buscaBinaria(int valor);
+int buscaProximo(int valor);
+void imprimeVetor();
+void criaVetor();
+void criaVetorPredefinido(int tamanho, int tipo, int chaveAleatoriedade);
+void adicionaValorVetor(int valor);
+void ordenaVetor();
+void ordenaVetorInsercao();
