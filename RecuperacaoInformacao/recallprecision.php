@@ -1,3 +1,7 @@
+<?php 
+error_reporting(-1);
+ini_set('display_errors', 'On');
+?>
 <head>
     <title>Furg - Recuperação de Informação</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -123,8 +127,20 @@
 		</div>
 		<div id="formularioBuscador">
 			<div id="formulario">
-				<form action="teste.php" method="post">
-					<input type="text" name="query" id="query" value="" alt="insira sua pesquisa" />
+				<form action="recallprecision.php" method="post">
+<?php
+echo "<table border='0'><tr>";
+for($i = 0; $i<21; $i++){
+	if($i%3 == 0){echo "</tr><tr>";}
+	echo "<td><label for = \"coding\"> Arquivo $i </ label></td>
+		  <td> <input style='width: 50px;' type = \"checkbox\" id = \"arquivo$i\" name = \"arquivos[]\" value = \"arquivo$i\"> </td>";
+}
+echo "</tr></table>";
+
+echo "<input type=\"hidden\" name=\"qtd_arquivos\" value=\"20\"  />";
+
+?>
+<input type="submit" value="Submit">
 				</form>
 			</div>
 		</div>
@@ -133,76 +149,82 @@
 		
 <?php 
 
-if (array_key_exists("query", $_POST) && !empty($_POST["query"])) {
+if (array_key_exists("qtd_arquivos", $_POST) && !empty($_POST["qtd_arquivos"])) {
 
 
-function callAPI($method, $url, $data){
-   $curl = curl_init();
-   switch ($method){
-      case "POST":
-         curl_setopt($curl, CURLOPT_POST, 1);
-         if ($data)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-         break;
-      case "PUT":
-         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
-         if ($data)
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);			 					
-         break;
-      default:
-         if ($data)
-            $url = sprintf("%s?%s", $url, http_build_query($data));
-   }
-   // OPTIONS:
-   curl_setopt($curl, CURLOPT_URL, $url);
-   curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-      //'APIKEY: 111111111111111111111',
-      'Content-Type: application/json',
-   ));
-   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-   curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-   // EXECUTE:
-   $result = curl_exec($curl);
-   if(!$result){die("Connection Failure");}
-   curl_close($curl);
-   return $result;
-}
 
-
-$data_array =  array(
-      "query"        => $_POST["query"]
-);
-$make_call = callAPI('POST', 'http://localhost:8081/consult/find', json_encode($data_array));
-$response = json_decode($make_call, true);
 //echo "<pre>";
-//print_r($response);
+//print_r($_POST);
 // echo "</pre>";
  
- $ordered = $response["listVetorialModel"];
- usort($ordered, function($a, $b) {
+ $arquivos = [];
+ $qtd_relevantes = count($_POST["arquivos"]);
+ 
+ $index_fake = 21;
+ 
+ for($i = 0; $i<20; $i++){
+	$arquivos["arquivo$i"]["index"] = $index_fake--;//random_int(0, 999);
+	$arquivos["arquivo$i"]["marcado"] = (in_array("arquivo$i", $_POST["arquivos"])) ? "S" : "N";
+}
+
+usort($arquivos, function($a, $b) {
     return $a['index'] < $b['index'];
 });
 
-//echo "<pre>";
-//print_r($ordered);
-// echo "</pre>";
+$contador = 1;
+$contador_relevante = 0;
+foreach($arquivos as $chave => $valor){
+	$arquivos[$chave]["posicao"] = $contador;
+	$arquivos[$chave]["qtd_relevante"] = ($arquivos[$chave]["marcado"] == "S") ? ++$contador_relevante : $contador_relevante;
+	$arquivos[$chave]["precision"] = ($arquivos[$chave]["marcado"] == "S") ? round($arquivos[$chave]["qtd_relevante"]/$arquivos[$chave]["posicao"],2)*100 : 0;
+	$arquivos[$chave]["completa"]["recall"] = round($arquivos[$chave]["qtd_relevante"]/$qtd_relevantes,2)*100;
+	$arquivos[$chave]["completa"]["precision"] = round($arquivos[$chave]["qtd_relevante"]/$arquivos[$chave]["posicao"],2)*100;
+	$arquivos[$chave]["interpolada"]["recall"] = round($arquivos[$chave]["qtd_relevante"]/$qtd_relevantes,2)*100;
+	$arquivos[$chave]["interpolada"]["precision"] = 0;
+	$contador++;
+}
 
-foreach ($ordered as $value) {
-	if($value["index"] > 0){
-        echo "<ul class='result'>
-				<li class='fileIndex'>{$value["index"]}</li>
-				<li class='fileName'>{$value["file"]["name"]}</li>
-				<li class='fileContent'>{$value["file"]["content"]}</li>
-			</ul>";
+//precision interpolada
+$i = 0;
+foreach($arquivos as $chave2 => $valor2){
+	$sub = array_slice($arquivos, $i, count($arquivos)-$i, true);
+	$max = 0;
+	foreach($sub  as $chave => $valor){
+		$max = ($arquivos[$chave]["completa"]["precision"] > $max) ? $arquivos[$chave]["completa"]["precision"] : $max;
+	}
+	$arquivos[$chave2]["interpolada"]["precision"] = $max;
+	$i++;
+}
+
+//interpolada 11 pontos
+$interpolada_11 = array(0 => 100, 10 => 0, 20 => 0, 30 => 0, 40 => 0, 50 => 0, 60 => 0, 70 => 0, 80 => 0, 90 => 0, 100 => 0);
+foreach($interpolada_11 as $chave => $valor){
+	if($chave != 0){
+		foreach($arquivos as $chave2 => $valor2){
+			if($arquivos[$chave2]["interpolada"]["recall"] > $chave){
+				$interpolada_11[$chave] = $arquivos[$chave2]["interpolada"]["precision"];
+				break;
+			}
+		}
 	}
 }
 
+//print_r($interpolada_11);
+
+
+ 
+
+//echo $qtd_relevantes;
+//echo "<pre>";
+//print_r($arquivos);
+// echo "</pre>";
+
+require_once("grafico.php");
 
 }
 
 
-//error_reporting(-1);
-//ini_set('display_errors', 'On');
+
 
 
 //curl -X POST "http://localhost:8081/consult/find" -H  "accept: */*" -H  "Content-Type: application/json" -d "{\"query\":\"boi cavalo peão boi\"}"

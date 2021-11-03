@@ -26,7 +26,7 @@ CREATE TABLE `collection` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `collection` (
 
 LOCK TABLES `collection` WRITE;
 /*!40000 ALTER TABLE `collection` DISABLE KEYS */;
-INSERT INTO `collection` VALUES (1,'trabalho1');
+INSERT INTO `collection` VALUES (1,'trabalho1'),(2,'PageRank');
 /*!40000 ALTER TABLE `collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,6 +94,56 @@ INSERT INTO `files` VALUES (1,'xadrez.txt',NULL,'O peão e o cavalo são peças 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `page_link`
+--
+
+DROP TABLE IF EXISTS `page_link`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `page_link` (
+  `page_origin_id` int(10) NOT NULL,
+  `page_target_id` int(10) NOT NULL,
+  PRIMARY KEY (`page_origin_id`,`page_target_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `page_link`
+--
+
+LOCK TABLES `page_link` WRITE;
+/*!40000 ALTER TABLE `page_link` DISABLE KEYS */;
+INSERT INTO `page_link` VALUES (42,41),(43,41),(43,46),(44,41),(44,43),(45,41),(45,44),(46,44);
+/*!40000 ALTER TABLE `page_link` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pages`
+--
+
+DROP TABLE IF EXISTS `pages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pages` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `link` varchar(500) DEFAULT NULL,
+  `collection_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pages`
+--
+
+LOCK TABLES `pages` WRITE;
+/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+INSERT INTO `pages` VALUES (41,'paginaD','paginaD.html',2),(42,'paginaF','paginaF.html',2),(43,'paginaC','paginaC.html',2),(44,'paginaB','paginaB.html',2),(45,'paginaE','paginaE.html',2),(46,'paginaA','paginaA.html',2);
+/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `words`
 --
 
@@ -128,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-06 17:58:53
+-- Dump completed on 2021-11-03 17:06:06
